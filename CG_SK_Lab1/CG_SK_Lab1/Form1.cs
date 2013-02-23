@@ -60,9 +60,7 @@ namespace CG_SK_Lab1
         {
             if (e.KeyCode == Keys.Enter)
             {
-                access.Text = "Granted Son!";
-                access.ForeColor = Color.Green;
-                timer1.Start();
+                check_database();
             }
         }
 
@@ -88,9 +86,7 @@ namespace CG_SK_Lab1
                 access.ForeColor = Color.Green;
                 timer1.Start();
             }
-            else
-                e.Handled = true;
-
+          
         }
 
 
@@ -107,7 +103,7 @@ namespace CG_SK_Lab1
 
         private void UIDText_KeyPress(object sender, KeyPressEventArgs e)
         {
-            e.Handled = true;
+           // e.Handled = true;
         }
 
         private void ADispRep_Click(object sender, EventArgs e)
@@ -134,15 +130,38 @@ namespace CG_SK_Lab1
         private void check_database()
         {
             Excel.Application xlApp = new Excel.Application();
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\mtdb";
+            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\test";
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;
             string currentSheet = "Sheet1";
             Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
 
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range("A1", "A1");
+            string cellname = "C2";
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
+            string code = xlcell.Value.ToString();
+            bool match = false;
+            int i = 2;
+            while (xlcell.Value != null  && !match)
+            {
+                
+                if (UIDText.Text == code)
+                {
+                    access.Text = "Granted";
+                    access.ForeColor = Color.Green;
+                    timer1.Start();
+                    match = true;
+                }
+                else
+                {
+                    i++;
+                    cellname = "C" + i.ToString();
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
+                    if (xlcell.Value != null)
+                        code = xlcell.Value.ToString();
+                }
+            }
 
-            UPinText.Text = xlcell.Value;
+
 
         }
 
