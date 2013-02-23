@@ -55,7 +55,7 @@ namespace CG_SK_Lab1
         {
             if (e.KeyCode == Keys.Enter)
             {
-                access.Text = "Granted";
+                access.Text = "Granted Son!";
                 access.ForeColor = Color.Green;
                 timer1.Start();
             }
