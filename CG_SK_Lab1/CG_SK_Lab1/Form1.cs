@@ -11,6 +11,10 @@ namespace CG_SK_Lab1
 {
     public partial class UEnter : Form
     {
+        public ChangePassword change = new ChangePassword();
+        public Reports reports = new Reports();
+        public Predictions predict = new Predictions();
+        public EnrollCadet enroll = new EnrollCadet();
         public UEnter()
         {
             InitializeComponent();
@@ -102,6 +106,26 @@ namespace CG_SK_Lab1
         private void UIDText_KeyPress(object sender, KeyPressEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void ADispRep_Click(object sender, EventArgs e)
+        {
+            reports.ShowDialog();
+        }
+
+        private void ADispPred_Click(object sender, EventArgs e)
+        {
+            predict.ShowDialog();
+        }
+
+        private void AEnroll_Click(object sender, EventArgs e)
+        {
+            enroll.ShowDialog();
+        }
+
+        private void AChangePass_Click(object sender, EventArgs e)
+        {
+            change.ShowDialog();
         }
         
 

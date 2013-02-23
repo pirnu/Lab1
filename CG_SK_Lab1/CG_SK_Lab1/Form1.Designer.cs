@@ -182,6 +182,7 @@
             this.ADispRep.Text = "Display Reports";
             this.ADispRep.UseVisualStyleBackColor = true;
             this.ADispRep.Visible = false;
+            this.ADispRep.Click += new System.EventHandler(this.ADispRep_Click);
             // 
             // ADispPred
             // 
@@ -192,6 +193,7 @@
             this.ADispPred.Text = "Display Predictions";
             this.ADispPred.UseVisualStyleBackColor = true;
             this.ADispPred.Visible = false;
+            this.ADispPred.Click += new System.EventHandler(this.ADispPred_Click);
             // 
             // AEnroll
             // 
@@ -202,6 +204,7 @@
             this.AEnroll.Text = "Enroll New Cadet";
             this.AEnroll.UseVisualStyleBackColor = true;
             this.AEnroll.Visible = false;
+            this.AEnroll.Click += new System.EventHandler(this.AEnroll_Click);
             // 
             // AChangePass
             // 
@@ -212,6 +215,7 @@
             this.AChangePass.Text = "Change Password";
             this.AChangePass.UseVisualStyleBackColor = true;
             this.AChangePass.Visible = false;
+            this.AChangePass.Click += new System.EventHandler(this.AChangePass_Click);
             // 
             // AMenuLabel
             // 
