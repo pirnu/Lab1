@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.AButton = new System.Windows.Forms.Button();
             this.ANameText = new System.Windows.Forms.TextBox();
             this.APassText = new System.Windows.Forms.TextBox();
@@ -46,6 +47,8 @@
             this.AEnroll = new System.Windows.Forms.Button();
             this.AChangePass = new System.Windows.Forms.Button();
             this.AMenuLabel = new System.Windows.Forms.Label();
+            this.access = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // AButton
@@ -111,6 +114,8 @@
             this.UIDText.Name = "UIDText";
             this.UIDText.Size = new System.Drawing.Size(178, 20);
             this.UIDText.TabIndex = 6;
+            this.UIDText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UIDText_KeyDown);
+            this.UIDText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.UIDText_KeyPress);
             // 
             // label1
             // 
@@ -128,6 +133,7 @@
             this.UNameText.Name = "UNameText";
             this.UNameText.Size = new System.Drawing.Size(138, 20);
             this.UNameText.TabIndex = 8;
+            this.UNameText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UNameText_KeyDown);
             // 
             // label2
             // 
@@ -145,6 +151,8 @@
             this.UPinText.Name = "UPinText";
             this.UPinText.Size = new System.Drawing.Size(138, 20);
             this.UPinText.TabIndex = 10;
+            this.UPinText.TextChanged += new System.EventHandler(this.UPinText_TextChanged);
+            this.UPinText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UPinText_KeyDown);
             // 
             // label3
             // 
@@ -177,7 +185,7 @@
             // 
             // ADispPred
             // 
-            this.ADispPred.Location = new System.Drawing.Point(273, 257);
+            this.ADispPred.Location = new System.Drawing.Point(273, 269);
             this.ADispPred.Name = "ADispPred";
             this.ADispPred.Size = new System.Drawing.Size(107, 23);
             this.ADispPred.TabIndex = 14;
@@ -187,7 +195,7 @@
             // 
             // AEnroll
             // 
-            this.AEnroll.Location = new System.Drawing.Point(273, 286);
+            this.AEnroll.Location = new System.Drawing.Point(273, 311);
             this.AEnroll.Name = "AEnroll";
             this.AEnroll.Size = new System.Drawing.Size(107, 23);
             this.AEnroll.TabIndex = 15;
@@ -197,7 +205,7 @@
             // 
             // AChangePass
             // 
-            this.AChangePass.Location = new System.Drawing.Point(273, 314);
+            this.AChangePass.Location = new System.Drawing.Point(273, 353);
             this.AChangePass.Name = "AChangePass";
             this.AChangePass.Size = new System.Drawing.Size(107, 23);
             this.AChangePass.TabIndex = 16;
@@ -216,11 +224,28 @@
             this.AMenuLabel.Text = "Admin Menu";
             this.AMenuLabel.Visible = false;
             // 
+            // access
+            // 
+            this.access.AutoSize = true;
+            this.access.Font = new System.Drawing.Font("Lucida Sans Typewriter", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.access.ForeColor = System.Drawing.Color.Black;
+            this.access.Location = new System.Drawing.Point(25, 112);
+            this.access.Name = "access";
+            this.access.Size = new System.Drawing.Size(188, 37);
+            this.access.TabIndex = 19;
+            this.access.Text = "Scan Card";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // UEnter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 426);
+            this.Controls.Add(this.access);
             this.Controls.Add(this.AMenuLabel);
             this.Controls.Add(this.AChangePass);
             this.Controls.Add(this.AEnroll);
@@ -241,6 +266,7 @@
             this.Controls.Add(this.AButton);
             this.Name = "UEnter";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.UEnter_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -266,6 +292,8 @@
         private System.Windows.Forms.Button AEnroll;
         private System.Windows.Forms.Button AChangePass;
         private System.Windows.Forms.Label AMenuLabel;
+        private System.Windows.Forms.Label access;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 

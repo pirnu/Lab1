@@ -15,10 +15,13 @@ namespace CG_SK_Lab1
         {
             InitializeComponent();
             this.ActiveControl = UIDText;
+
+            //To Remove 'Ding' On Enter
+           // AcceptButton = new Button();
+           // CancelButton = new Button();
+
             
         }
-
-        
 
         private void AButton_Click(object sender, EventArgs e)
         {
@@ -40,5 +43,66 @@ namespace CG_SK_Lab1
             AEnroll.Visible = true;
             AChangePass.Visible = true;
         }
+
+
+
+        private void UEnter_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UIDText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                access.Text = "Granted";
+                access.ForeColor = Color.Green;
+                timer1.Start();
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            access.Text = "Scan Card";
+            access.ForeColor = Color.Black;
+            UIDText.Text = "";
+            timer1.Stop();
+        }
+
+        private void UPinText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UPinText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                access.Text = "Granted";
+                access.ForeColor = Color.Green;
+                timer1.Start();
+            }
+            else
+                e.Handled = true;
+
+        }
+
+
+        private void UNameText_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                access.Text = "Granted";
+                access.ForeColor = Color.Green;
+                timer1.Start();
+            }
+        }
+
+        private void UIDText_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            e.Handled = true;
+        }
+        
+
     }
 }
