@@ -29,7 +29,5 @@ namespace CG_SK_Lab1
         {
             InitializeComponent();
         }
-
-
     }
 }

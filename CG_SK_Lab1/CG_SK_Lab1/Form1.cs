@@ -94,6 +94,7 @@ namespace CG_SK_Lab1
         }
 
 
+
         private void UNameText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -128,7 +129,25 @@ namespace CG_SK_Lab1
         {
             change.ShowDialog();
         }
-        
+
+
+        private void check_database()
+        {
+            Excel.Application xlApp = new Excel.Application();
+            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\mtdb";
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;
+            string currentSheet = "Sheet1";
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
+
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range("A1", "A1");
+
+            UPinText.Text = xlcell.Value;
+
+        }
+
+
+
 
     }
 }
