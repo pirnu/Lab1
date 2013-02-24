@@ -49,6 +49,8 @@
             this.AMenuLabel = new System.Windows.Forms.Label();
             this.access = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.adminaccess = new System.Windows.Forms.Label();
+            this.logout = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AButton
@@ -68,6 +70,7 @@
             this.ANameText.Size = new System.Drawing.Size(138, 20);
             this.ANameText.TabIndex = 1;
             this.ANameText.Visible = false;
+            this.ANameText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ANameText_KeyDown);
             // 
             // APassText
             // 
@@ -76,6 +79,7 @@
             this.APassText.Size = new System.Drawing.Size(138, 20);
             this.APassText.TabIndex = 2;
             this.APassText.Visible = false;
+            this.APassText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ANameText_KeyDown);
             // 
             // ANameLabel
             // 
@@ -244,11 +248,35 @@
             this.timer1.Interval = 1500;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // adminaccess
+            // 
+            this.adminaccess.AutoSize = true;
+            this.adminaccess.Font = new System.Drawing.Font("Lucida Sans Typewriter", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.adminaccess.Location = new System.Drawing.Point(16, 387);
+            this.adminaccess.Name = "adminaccess";
+            this.adminaccess.Size = new System.Drawing.Size(178, 18);
+            this.adminaccess.TabIndex = 20;
+            this.adminaccess.Text = "Enter Credentials";
+            this.adminaccess.Visible = false;
+            // 
+            // logout
+            // 
+            this.logout.Location = new System.Drawing.Point(273, 387);
+            this.logout.Name = "logout";
+            this.logout.Size = new System.Drawing.Size(107, 35);
+            this.logout.TabIndex = 21;
+            this.logout.Text = "Log Out";
+            this.logout.UseVisualStyleBackColor = true;
+            this.logout.Visible = false;
+            this.logout.Click += new System.EventHandler(this.logout_Click);
+            // 
             // UEnter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 426);
+            this.Controls.Add(this.logout);
+            this.Controls.Add(this.adminaccess);
             this.Controls.Add(this.access);
             this.Controls.Add(this.AMenuLabel);
             this.Controls.Add(this.AChangePass);
@@ -298,6 +326,8 @@
         private System.Windows.Forms.Label AMenuLabel;
         private System.Windows.Forms.Label access;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label adminaccess;
+        private System.Windows.Forms.Button logout;
     }
 }
 
