@@ -12,22 +12,25 @@ namespace CG_SK_Lab1
 {
     public partial class UEnter : Form
     {
+        //Link all other forms
         public ChangePassword change = new ChangePassword();
         public Reports reports = new Reports();
         public Predictions predict = new Predictions();
         public EnrollCadet enroll = new EnrollCadet();
         public Already_Signed_In asi = new Already_Signed_In();
         public bool AdminActive = false;
+
+        //Initial-Conditions
         public UEnter()
         {
             InitializeComponent();
             this.ActiveControl = UIDText;
         }
 
+        //When Admin-Login is clicked.
         private void AButton_Click(object sender, EventArgs e)
         {
             // Make admin login visible
-            
             ANameLabel.Visible = true;
             ANameText.Visible = true;
             APassLabel.Visible = true;
@@ -36,6 +39,7 @@ namespace CG_SK_Lab1
             adminaccess.Visible = true;
         }
 
+        //When Log-in (for Admin credentials) is clicked
         private void ALogin_Click(object sender, EventArgs e)
         {
             // Validate admin
@@ -43,9 +47,12 @@ namespace CG_SK_Lab1
             // Make admin menu visible
             if (AdminActive)
             {
+                //de-activate sign in fields
                 UNameText.ReadOnly = true;
                 UPinText.ReadOnly = true;
                 UIDText.ReadOnly = true;
+
+                //Show Admin Options
                 logout.Visible = true;
                 AMenuLabel.Visible = true;
                 ADispRep.Visible = true;
@@ -56,65 +63,53 @@ namespace CG_SK_Lab1
 
         }
 
-
-
-
         private void UEnter_Load(object sender, EventArgs e)
         {
 
-        }
+        }//Need to Learn How to Delete...
 
-        private void UIDText_KeyDown(object sender, KeyEventArgs e)
-        
-    {
-            if (e.KeyCode == Keys.Enter)
-            {
-                check_database_code();
-            }
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
+        //When An ID is scanned
+        private void UIDText_KeyDown(object sender, KeyEventArgs e)    
         {
-            access.Text = "Scan Card";
-            adminaccess.Text = "";
-            access.ForeColor = Color.Black;
-            UIDText.Text = "";
-            timer1.Stop();
+            //The scanners last input is Enter, Check Database for Cadets Code
+            if (e.KeyCode == Keys.Enter)
+                check_database_code();
         }
-
+        
         private void UPinText_TextChanged(object sender, EventArgs e)
         {
             //Does nothing
         } // Find  a way to remove...without breaking everything
 
+        //When User presses Enter in name field
         private void UNameText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
-                check_database_np(); //checks database with typed input
-            }
+                check_database_np(); //checks user database with typed input
         }
 
+        //When User presses Enter in pin field
         private void UPinText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
-                check_database_np(); //checks database with typed input
-            }
-          
+                check_database_np(); //checks user database with typed input
         }
 
+        //When Admin presses Enter in Name Field
         private void ANameText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                check_database_admin();
+                check_database_admin(); //Check Admin Database
                 // Make admin menu visible
                 if (AdminActive)
                 {
+                    //Don't allow sign in input
                     UNameText.ReadOnly = true;
                     UPinText.ReadOnly = true;
                     UIDText.ReadOnly = true;
+                    
+                    //Show Admin Priviledges
                     logout.Visible = true;
                     AMenuLabel.Visible = true;
                     ADispRep.Visible = true;
@@ -125,11 +120,25 @@ namespace CG_SK_Lab1
             }
         }
 
+        //When Timer Reaches Max
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //Set text back to defaults
+            access.Text = "Scan Card";
+            adminaccess.Text = "";
+            access.ForeColor = Color.Black;
+
+            //Clear the Scan Bar Text
+            UIDText.Text = "";
+            timer1.Stop();
+        }
+
         private void UIDText_KeyPress(object sender, KeyPressEventArgs e)
         {
            //Does nothing
-        }
+        } //Need to Remove...
 
+        // Show Dialog whenever another form link is selected.
         private void ADispRep_Click(object sender, EventArgs e)
         {
             reports.ShowDialog();
@@ -151,237 +160,243 @@ namespace CG_SK_Lab1
         }
 
 
+        // Check Database with Scanned ID
         private void check_database_code()
         {
             //Initializes Database
-            Excel.Application xlApp = new Excel.Application();
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
-            Excel.Sheets xlsheet = xlWorkBook.Worksheets;
-            string currentSheet = "Users";
-            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //path
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Users";                                                  // Set current sheet to be Cadet Users
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
 
-            string cellname = "C2";
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-            Excel.AllowEditRange testin;
-            string code = xlcell.Value.ToString();
-            bool match = false;
-            int i = 2;
-            while (xlcell.Value != null && !match)
+            string cellname = "C2";                                                         // First cell with scanned ID #
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
+            string code = xlcell.Value.ToString();                                          // store value in xlcell as a string
+            bool match = false;                                                             // initialize match as not found
+            int i = 2;                                                                      // current row is two
+            while (xlcell.Value != null && !match)                                          // while its not the bottom of the db and a match has not been found
             {
 
-                if (UIDText.Text == code)
+                if (UIDText.Text == code)                                                   // check if code matches Value
                 {
-                    cellname = "D" + i.ToString();
-                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    double attend = xlcell.Value;
-                    if (attend == 0)
+                    cellname = "D" + i.ToString();                                          // change cell to check attendance
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname); 
+                    double attend = xlcell.Value;                                           // store in attend
+                    if (attend == 0)                                                        // if student has not yet signed in...
                     {
-                        access.Text = "Granted";
+                        access.Text = "Granted";                                            // Grant Access
                         access.ForeColor = Color.Green;
-                        timer1.Start();
-                        match = true;
+                        timer1.Start();                                                     // Only show for 1.5 seconds
+                        match = true;                                                       // Match has been found
+                       
                         //update database
-                        attend = attend+1;
-                        xlApp.Cells[i, 4] = attend;
-                        xlWorkBook.Save();
+                        attend = attend+1;                                                  // increase attend by 1
+                        xlApp.Cells[i, 4] = attend;                                         // set value to new attend
+                        xlWorkBook.Save();                                                  // save the change
                         //reset form
-                        UPinText.Text = "";
+                        UPinText.Text = ""; 
                         UNameText.Text = "";
-                        this.ActiveControl = UIDText;
+                        this.ActiveControl = UIDText;                                       // Reset cursor to scan input
 
                     }
-                    else
+                    else // if they have already signed in.
                     {
-                        access.Text = "Denied";
+                        access.Text = "Denied";                                             // Deny Access
                         access.ForeColor = Color.Red;
                         timer1.Start();
-                        match = true;
-                        asi.ShowDialog();
-                        if (asi.getstatus())
+                        match = true;                                                       // Cadet is in database
+                        asi.ShowDialog();                                                   // Show form that student has already signed in
+                        if (asi.getstatus())                                                // If admin allowed override
                         {
-                            attend = attend+1;
-                            xlApp.Cells[i, 4] = attend;
-                            xlWorkBook.Save();
+                            attend = attend+1;                                              // Increase attendance by one
+                            xlApp.Cells[i, 4] = attend;                                     // Put value in spreadsheet
+                            xlWorkBook.Save();                                              // Save value
                         }
                     }
 
                 }
-                else
+                else // If Current code did not match
                 {
-                    i++;
-                    cellname = "C" + i.ToString();
-                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    if (xlcell.Value != null)
-                        code = xlcell.Value.ToString();
+                    i++;                                                                    // Move down a row
+                    cellname = "C" + i.ToString();                                          // Set next cell
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);        // Get code
+                    if (xlcell.Value != null)                                               // if its not empty
+                        code = xlcell.Value.ToString();                                     // set as a string
                 }
             }
-            if (!match)
+            if (!match) // If ID # was not found
             {
-                access.Text = "User Does Not Exist";
+                access.Text = "User Does Not Exist";                                        // Display Why Denied
                 access.ForeColor = Color.Red;
-                timer1.Start();
+                timer1.Start();                                                             // Show for 1.5 seconds
             }
         }
 
         private void check_database_np() //check with name and pin
         {
-            Excel.Application xlApp = new Excel.Application();
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
-            Excel.Sheets xlsheet = xlWorkBook.Worksheets;
-            string currentSheet = "Users";
-            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Users";                                                  // Set current sheet to be Cadet Users
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
 
-            string cellname = "A2";
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-            Excel.AllowEditRange test;
-            string code = xlcell.Value.ToString();
-            bool match = false;
-            int i = 2;
-            while (xlcell.Value != null && !match)
+            string cellname = "A2";                                                         // First cell with Cadet Name
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
+            string name = xlcell.Value.ToString();                                          // store value in xlcell as a string
+            bool match = false;                                                             // initialize match as not found
+            int i = 2;                                                                      // current row is two
+            while (xlcell.Value != null && !match)                                          // while its not the bottom of the db and a match has not been found
             {
 
-                if (UNameText.Text == code)
+                if (UNameText.Text == name)                                                 // check if name matches Value
                 {
-                    cellname = "B" + i.ToString();
+                    cellname = "B" + i.ToString();                                          // change cell to check Pin
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);        
+                    string pin = xlcell.Value.ToString();                                   // store in pin
+                    cellname = "D" + i.ToString();                                          // check attendance value
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    string pin = xlcell.Value.ToString();
-                    cellname = "D" + i.ToString();
-                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    double attend = xlcell.Value;
-                    if (UPinText.Text == pin)
+                    double attend = xlcell.Value;                                           // change cell to check attendance
+
+                    if (UPinText.Text == pin)                                               // If Pins Match
                     {
-                        if (attend == 0)
+                        if (attend == 0)                                                    // If Not Signed In
                         {
-                            access.Text = "Granted";
+                            access.Text = "Granted";                                        // Grant Access
                             access.ForeColor = Color.Green;
                             timer1.Start();
-                            match = true;
+                            match = true;                                                   // Match has been Found
                             //update database
-                            attend = attend+1;
-                            xlApp.Cells[i, 4] = attend;
-                            xlWorkBook.Save();
+                            attend = attend + 1;                                            // Increase attendance by one
+                            xlApp.Cells[i, 4] = attend;                                     // Put value in spreadsheet
+                            xlWorkBook.Save();                                              // Save value
                             //reset form
                             UPinText.Text = "";
                             UNameText.Text = "";
-                            this.ActiveControl = UIDText;
+                            this.ActiveControl = UIDText;                                   // Set cursor back to scan ID
                             
                         }
-                        else
+                        else // They already signed in
                         {
-                            access.Text = "Denied";
+                            access.Text = "Denied";                                         // Deny Access
                             access.ForeColor = Color.Red;
                             timer1.Start();
-                            match = true;
-                            asi.ShowDialog();
-                            if (asi.getstatus())
+                            match = true;                                                   // They were found
+                            asi.ShowDialog();                                               // Prompt for admin override
+                            if (asi.getstatus())                                            // If admin overrides
                             {
-                                attend = attend+1;
-                                xlApp.Cells[i, 4] = attend;
-                                xlWorkBook.Save();
+                                attend = attend + 1;                                        // Increase attendance by one
+                                xlApp.Cells[i, 4] = attend;                                 // Put value in spreadsheet
+                                xlWorkBook.Save();                                          // Save value
                             }
                         }
 
                     }
-                    else
+                    else // Pin Was Wrong
                     {
-                        access.Text = "Incorrect Pin!";
+                        access.Text = "Incorrect Pin!";                                      // Tell them wrong pin
                         access.ForeColor = Color.Red;
                         timer1.Start();
-                        match = true;
-                        UPinText.Text = "";
-                        this.ActiveControl = UPinText;
+                        match = true;                                                        // Their name was found
+                        UPinText.Text = "";                                                  // Clear pin field
+                        this.ActiveControl = UPinText;                                       // Set cursor to retype Pin
                     }
                 }
-                else
+
+                else // The current cell was not their name
                 {
-                    i++;
-                    cellname = "A" + i.ToString();
-                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    if (xlcell.Value != null)
-                        code = xlcell.Value.ToString();
+                    i++;                                                                    // Move down a row
+                    cellname = "A" + i.ToString();                                          // Set next cell
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);        // Get name
+                    if (xlcell.Value != null)                                               // if its not empty
+                        name = xlcell.Value.ToString();                                     // set as a string
                 }
             }
-            if (!match)
+
+            if (!match) // Didn't find the name
             {
-                access.Text = "User Does Not Exist";
+                access.Text = "Username Does Not Exist";                                    // Inform of problem
                 access.ForeColor = Color.Red;
                 timer1.Start();
-                UNameText.Text = "";
+                UNameText.Text = "";                                                        // Clear Name and Pin
                 UPinText.Text = "";
-                this.ActiveControl = UNameText;
+                this.ActiveControl = UNameText;                                             // Set up for re-entering name
             }
         }
         private void check_database_admin() //check with name and pin
         {
-            Excel.Application xlApp = new Excel.Application();
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
-            Excel.Sheets xlsheet = xlWorkBook.Worksheets;
-            string currentSheet = "Admin";
-            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Admin";                                                  // Set current sheet to be Administrators
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
 
-            string cellname = "A2";
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-            string code = xlcell.Value.ToString();
-            bool match = false;
-            int i = 2;
-            while (xlcell.Value != null && !match)
+            string cellname = "A2";                                                         // First cell with Admin Name
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
+            string name = xlcell.Value.ToString();                                          // store value in xlcell as a string
+            bool match = false;                                                             // initialize match as not found
+            int i = 2;                                                                      // current row is two
+            while (xlcell.Value != null && !match)                                          // while its not the bottom of the db and a match has not been found
             {
 
-                if (ANameText.Text == code)
+                if (ANameText.Text == name)                                                 // If admin name is found
                 {
-                    cellname = "B" + i.ToString();
+                    cellname = "B" + i.ToString();                                          // Change cell to check password
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    string pin = xlcell.Value.ToString();
-                    if (APassText.Text == pin)
+                    string pin = xlcell.Value.ToString();                                   // save Password to pin
+                    if (APassText.Text == pin)                                              // If pin also matches
                     {
-                        adminaccess.Text = "Granted";
+                        adminaccess.Text = "Granted";                                       // Grant Admin Access
                         adminaccess.ForeColor = Color.Green;
-                        timer1.Start();
-                        match = true;
+                        timer1.Start(); 
+                        match = true;                                                       // Admin has been found
                         APassText.Text = "";
                         ANameText.Text = "";
-                        this.ActiveControl = UIDText;
-                        AdminActive = true;
+                        AdminActive = true;                                                 // Admin is Active
                     }
-                    else
+                    else //Wrong Pin
                     {
-                        adminaccess.Text = "Incorrect Pin!";
+                        adminaccess.Text = "Incorrect Pin!";                                // Display Wrong Pin
                         adminaccess.ForeColor = Color.Red;
-                        timer1.Start();
-                        match = true;
+                        timer1.Start();                                                     
+                        match = true;                                                       // Admin was found
                         APassText.Text = "";
-                        this.ActiveControl = APassText;
+                        this.ActiveControl = APassText;                                     // Put Cursor at cleared password field
                     }
                 }
-                else
+                else // Cell is not name
                 {
-                    i++;
-                    cellname = "A" + i.ToString();
-                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    if (xlcell.Value != null)
-                        code = xlcell.Value.ToString();
+                    i++;                                                                    // Move down a row
+                    cellname = "A" + i.ToString();                                          // Set next cell
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);        // Get name
+                    if (xlcell.Value != null)                                               // if its not empty
+                        name = xlcell.Value.ToString();                                     // set as a string
                 }
             }
-            if (!match)
+            if (!match) // Admin Name was not found
             {
-                adminaccess.Text = "User Does Not Exist";
+                adminaccess.Text = "Admin Does Not Exist";                                  // Show Error
                 adminaccess.ForeColor = Color.Red;
                 timer1.Start();
-                ANameText.Text = "";
+                ANameText.Text = "";                                                        // Clear Username and Password fileds
                 APassText.Text = "";
-                this.ActiveControl = ANameText;
+                this.ActiveControl = ANameText;                                             // Put Cusor in admin username field
             }
         }
 
         private void logout_Click(object sender, EventArgs e)
         {
+            // Admin is No Longer Signed in
             AdminActive = false;
+            // Allow Sign-Ins
             UNameText.ReadOnly = false;
             UPinText.ReadOnly = false;
             UIDText.ReadOnly = false;
+
+            // Hide Admin Priviledges
             logout.Visible = false;
             AMenuLabel.Visible = false;
             ADispRep.Visible = false;
@@ -394,14 +409,9 @@ namespace CG_SK_Lab1
             APassText.Visible = false;
             ALogin.Visible = false;
             adminaccess.Visible = false;
+
+            // Set Cursor back into the Scan Bar
             this.ActiveControl = UIDText;
         }
-
-        
-        /*public void update_cell(string cellnumber, double val)
-        {
-  
-               this.range[cellnumber, cellnumber].Value2 = val;
-        }*/
     }
 }

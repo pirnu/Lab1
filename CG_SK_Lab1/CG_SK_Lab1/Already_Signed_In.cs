@@ -15,6 +15,8 @@ namespace CG_SK_Lab1
         public Already_Signed_In()
         {
             InitializeComponent();
+            
+            //Hide Admin Priviledges
             aname.Visible = false;
             apass.Visible = false;
             ANameText.Visible = false;
@@ -23,9 +25,9 @@ namespace CG_SK_Lab1
 
         }
 
-        public bool overrode = false;
+        public bool overrode = false; // Admin has not overridden the Error
 
-        public bool getstatus()
+        public bool getstatus()       //Check if Admin overrode error
         {
             return overrode;
         }
@@ -42,6 +44,7 @@ namespace CG_SK_Lab1
 
         private void aoverride_Click(object sender, EventArgs e)
         {
+            // Show Admin Priviledges
             aname.Visible = true;
             apass.Visible = true;
             ANameText.Visible = true;
@@ -49,15 +52,14 @@ namespace CG_SK_Lab1
             enter.Visible = true;
         }
 
-
+        // Admin presses Enter in Name Field
         private void ANameText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
                 check_database_admin(); //checks database with typed input
-            }
         }
 
+        //Admin presses Enter in Password Field
         private void APassText_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -66,6 +68,7 @@ namespace CG_SK_Lab1
             }
         }
 
+        // Admin Clicks Override
         private void enter_Click(object sender, EventArgs e)
         {
                 check_database_admin(); //checks database with typed input
@@ -73,60 +76,59 @@ namespace CG_SK_Lab1
 
         private void check_database_admin() //check with name and pin
         {
-            Excel.Application xlApp = new Excel.Application();
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
-            Excel.Sheets xlsheet = xlWorkBook.Worksheets;
-            string currentSheet = "Admin";
-            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Admin";                                                  // Set current sheet to be Administrators
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
 
-            string cellname = "A2";
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-            string code = xlcell.Value.ToString();
-            bool match = false;
-            int i = 2;
-            while (xlcell.Value != null && !match)
+            string cellname = "A2";                                                         // First cell with Admin Name
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
+            string name = xlcell.Value.ToString();                                          // store value in xlcell as a string
+            bool match = false;                                                             // initialize match as not found
+            int i = 2;                                                                      // current row is two
+            while (xlcell.Value != null && !match)                                          // while its not the bottom of the db and a match has not been found
             {
 
-                if (ANameText.Text == code)
+                if (ANameText.Text == name)                                                 // If admin name is found
                 {
-                    cellname = "B" + i.ToString();
+                    cellname = "B" + i.ToString();                                          // Change cell to check password
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    string pin = xlcell.Value.ToString();
-                    if (APassText.Text == pin)
+                    string pin = xlcell.Value.ToString();                                   // save Password to pin
+                    if (APassText.Text == pin)                                              // If pin also matches
                     {
-                        match = true;
-
-                        overrode = true;
-                        this.Close();
+                        match = true;                                                       // Admin Found
+                        overrode = true;                                                    // Set Overrode to true
+                        this.Close();                                                       // Close Form
                     }
-                    else
+                    else // Wrong Password
                     {
-                        status.Text = "Incorrect Password";
+                        status.Text = "Incorrect Password";                                 // Show Error
                         status.ForeColor = Color.Red;
                         timer1.Start();
-                        match = true;
-                        APassText.Text = "";
-                        this.ActiveControl = APassText;
+                        match = true;                                                       // Admin Name Found
+                        APassText.Text = "";                                                // Clear Password Field
+                        this.ActiveControl = APassText;                                     // Put Cursor in the Password field
                     }
                 }
-                else
+                else // Not the Admin Name
                 {
-                    i++;
+                    i++;                                                                    // Check Next Row
                     cellname = "A" + i.ToString();
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    if (xlcell.Value != null)
-                        code = xlcell.Value.ToString();
+                    if (xlcell.Value != null)                                               // If Cell isn't empty
+                        name = xlcell.Value.ToString();                                     // Turn into string, set in name
                 }
             }
-            if (!match)
+            if (!match) // If name is never found
             {
-                status.Text = "User Does Not Exist";
+                status.Text = "Admin Does Not Exist";                                        // Show Error
                 status.ForeColor = Color.Red;
                 timer1.Start();
-                ANameText.Text = "";
+                ANameText.Text = "";                                                         // Clear fields
                 APassText.Text = "";
-                this.ActiveControl = ANameText;
+                this.ActiveControl = ANameText;                                              //Put Cursor in the username field
             }
         }
     
