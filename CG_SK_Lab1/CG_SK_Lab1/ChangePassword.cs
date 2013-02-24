@@ -29,5 +29,10 @@ namespace CG_SK_Lab1
         {
             InitializeComponent();
         }
+
+        private void ChangePassword_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

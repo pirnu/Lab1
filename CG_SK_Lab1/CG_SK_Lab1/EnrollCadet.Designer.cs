@@ -111,6 +111,7 @@
             this.Controls.Add(this.nameText);
             this.Name = "EnrollCadet";
             this.Text = "EnrollCadet";
+            this.Load += new System.EventHandler(this.EnrollCadet_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
