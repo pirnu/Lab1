@@ -164,7 +164,6 @@ namespace CG_SK_Lab1
         private void check_database_code()
         {
             //Initializes Database
-<<<<<<< HEAD
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //path
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
@@ -178,23 +177,6 @@ namespace CG_SK_Lab1
             bool match = false;                                                             // initialize match as not found
             int i = 2;                                                                      // current row is two
             while (xlcell.Value != null && !match)                                          // while its not the bottom of the db and a match has not been found
-=======
-            Excel.Application xlApp = new Excel.Application();
-            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            string workbookpath = "C:\\Users\\CADET14297\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
-            Excel.Sheets xlsheet = xlWorkBook.Worksheets;
-            string currentSheet = "Users";
-            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
-
-            string cellname = "C2";
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-            Excel.AllowEditRange testin;
-            string code = xlcell.Value.ToString();
-            bool match = false;
-            int i = 2;
-            while (xlcell.Value != null && !match)
->>>>>>> Nothing Really
             {
 
                 if (UIDText.Text == code)                                                   // check if code matches Value
@@ -231,7 +213,14 @@ namespace CG_SK_Lab1
                             attend = attend+1;                                              // Increase attendance by one
                             xlApp.Cells[i, 4] = attend;                                     // Put value in spreadsheet
                             xlWorkBook.Save();                                              // Save value
+                            access.Text = "Overide Accepted";                               // Grant Access
+                            access.ForeColor = Color.Green;
+                            timer1.Start();                                                 // Only show for 1.5 seconds
                         }
+                        UIDText.Text = "";
+                        UNameText.Text = "";
+                        UPinText.Text = "";
+                        this.ActiveControl = UIDText;
                     }
 
                 }
@@ -254,7 +243,6 @@ namespace CG_SK_Lab1
 
         private void check_database_np() //check with name and pin
         {
-<<<<<<< HEAD
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
@@ -268,23 +256,6 @@ namespace CG_SK_Lab1
             bool match = false;                                                             // initialize match as not found
             int i = 2;                                                                      // current row is two
             while (xlcell.Value != null && !match)                                          // while its not the bottom of the db and a match has not been found
-=======
-            Excel.Application xlApp = new Excel.Application();
-            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            string workbookpath = "C:\\Users\\CADET14297\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
-            Excel.Sheets xlsheet = xlWorkBook.Worksheets;
-            string currentSheet = "Users";
-            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
-
-            string cellname = "A2";
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-            Excel.AllowEditRange test;
-            string code = xlcell.Value.ToString();
-            bool match = false;
-            int i = 2;
-            while (xlcell.Value != null && !match)
->>>>>>> Nothing Really
             {
 
                 if (UNameText.Text == name)                                                 // check if name matches Value
@@ -326,7 +297,14 @@ namespace CG_SK_Lab1
                                 attend = attend + 1;                                        // Increase attendance by one
                                 xlApp.Cells[i, 4] = attend;                                 // Put value in spreadsheet
                                 xlWorkBook.Save();                                          // Save value
+                                access.Text = "Overide Accepted";                           // Grant Access
+                                access.ForeColor = Color.Green;
+                                timer1.Start();                                             // Only show for 1.5 seconds
                             }
+                            UIDText.Text = "";
+                            UNameText.Text = "";
+                            UPinText.Text = "";
+                            this.ActiveControl = UIDText;
                         }
 
                     }
@@ -363,7 +341,6 @@ namespace CG_SK_Lab1
         }
         private void check_database_admin() //check with name and pin
         {
-<<<<<<< HEAD
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
@@ -377,22 +354,6 @@ namespace CG_SK_Lab1
             bool match = false;                                                             // initialize match as not found
             int i = 2;                                                                      // current row is two
             while (xlcell.Value != null && !match)                                          // while its not the bottom of the db and a match has not been found
-=======
-            Excel.Application xlApp = new Excel.Application();
-            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            string workbookpath = "C:\\Users\\CADET14297\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
-            Excel.Sheets xlsheet = xlWorkBook.Worksheets;
-            string currentSheet = "Admin";
-            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
-
-            string cellname = "A2";
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-            string code = xlcell.Value.ToString();
-            bool match = false;
-            int i = 2;
-            while (xlcell.Value != null && !match)
->>>>>>> Nothing Really
             {
 
                 if (ANameText.Text == name)                                                 // If admin name is found
@@ -465,6 +426,12 @@ namespace CG_SK_Lab1
 
             // Set Cursor back into the Scan Bar
             this.ActiveControl = UIDText;
+        }
+
+        //User clicks button with typed credentials
+        private void button1_Click(object sender, EventArgs e)
+        {
+            check_database_np();
         }
     }
 }

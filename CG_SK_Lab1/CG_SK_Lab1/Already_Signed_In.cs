@@ -22,6 +22,7 @@ namespace CG_SK_Lab1
             ANameText.Visible = false;
             APassText.Visible = false;
             enter.Visible = false;
+            overrode = false;
 
         }
 
@@ -34,11 +35,17 @@ namespace CG_SK_Lab1
 
         private void Already_Signed_In_Load(object sender, EventArgs e)
         {
-            //Does nothing
+            // Show Admin Priviledges
+            aname.Visible = false;
+            apass.Visible = false;
+            ANameText.Visible = false;
+            APassText.Visible = false;
+            enter.Visible = false;
         }
 
         private void Accept_Click(object sender, EventArgs e)
         {
+            overrode = false;
             this.Close();
         }
 
@@ -76,7 +83,6 @@ namespace CG_SK_Lab1
 
         private void check_database_admin() //check with name and pin
         {
-<<<<<<< HEAD
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
@@ -90,22 +96,6 @@ namespace CG_SK_Lab1
             bool match = false;                                                             // initialize match as not found
             int i = 2;                                                                      // current row is two
             while (xlcell.Value != null && !match)                                          // while its not the bottom of the db and a match has not been found
-=======
-            Excel.Application xlApp = new Excel.Application();
-            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            string workbookpath = "C:\\Users\\CADET14297\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
-            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false);
-            Excel.Sheets xlsheet = xlWorkBook.Worksheets;
-            string currentSheet = "Admin";
-            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
-
-            string cellname = "A2";
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-            string code = xlcell.Value.ToString();
-            bool match = false;
-            int i = 2;
-            while (xlcell.Value != null && !match)
->>>>>>> Nothing Really
             {
 
                 if (ANameText.Text == name)                                                 // If admin name is found
@@ -117,11 +107,23 @@ namespace CG_SK_Lab1
                     {
                         match = true;                                                       // Admin Found
                         overrode = true;                                                    // Set Overrode to true
+
+                        // Hide Admin Priviledges
+                        aname.Visible = false;
+                        apass.Visible = false;
+                        ANameText.Visible = false;
+                        APassText.Visible = false;
+                        enter.Visible = false;
+                        ANameText.Text = "";                                                // Clear Credentials
+                        APassText.Text = "";
+
                         this.Close();                                                       // Close Form
                     }
                     else // Wrong Password
                     {
+                        
                         status.Text = "Incorrect Password";                                 // Show Error
+                        status.Visible = true;
                         status.ForeColor = Color.Red;
                         timer1.Start();
                         match = true;                                                       // Admin Name Found
@@ -140,13 +142,22 @@ namespace CG_SK_Lab1
             }
             if (!match) // If name is never found
             {
+                
                 status.Text = "Admin Does Not Exist";                                        // Show Error
+                status.Visible = true;
                 status.ForeColor = Color.Red;
                 timer1.Start();
                 ANameText.Text = "";                                                         // Clear fields
                 APassText.Text = "";
                 this.ActiveControl = ANameText;                                              //Put Cursor in the username field
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            //Hide Error
+            status.Visible = false;
+            timer1.Stop();
         }
     
     }

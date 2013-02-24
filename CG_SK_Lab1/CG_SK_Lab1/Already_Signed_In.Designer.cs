@@ -139,6 +139,11 @@
             this.status.Text = "Username/Pin Error";
             this.status.Visible = false;
             // 
+            // timer1
+            // 
+            this.timer1.Interval = 1500;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Already_Signed_In
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
