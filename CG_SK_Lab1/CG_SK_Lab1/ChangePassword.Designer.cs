@@ -104,6 +104,7 @@
             this.verified.Name = "verified";
             this.verified.Size = new System.Drawing.Size(127, 20);
             this.verified.TabIndex = 6;
+            this.verified.TextChanged += new System.EventHandler(this.verified_TextChanged);
             this.verified.KeyDown += new System.Windows.Forms.KeyEventHandler(this.verified_KeyDown);
             // 
             // commit
@@ -114,6 +115,7 @@
             this.commit.TabIndex = 7;
             this.commit.Text = "Commit Changes";
             this.commit.UseVisualStyleBackColor = true;
+            this.commit.Click += new System.EventHandler(this.commit_Click);
             // 
             // nstatus
             // 

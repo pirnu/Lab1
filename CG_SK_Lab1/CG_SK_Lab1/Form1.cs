@@ -333,7 +333,7 @@ namespace CG_SK_Lab1
 
             if (!match) // Didn't find the name
             {
-                access.Text = "Username Does Not Exist";                                    // Inform of problem
+                access.Text = "User Does Not Exist";                                    // Inform of problem
                 access.ForeColor = Color.Red;
                 timer1.Start();
                 UNameText.Text = "";                                                        // Clear Name and Pin

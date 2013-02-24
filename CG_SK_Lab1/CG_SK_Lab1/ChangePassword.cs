@@ -36,6 +36,7 @@ namespace CG_SK_Lab1
             pstatus.Visible = false;
             nstatus.Visible = false;
             matchingpwds = false;
+            this.ActiveControl = nameText;
         }
 
         private void nameText_Leave(object sender, EventArgs e)
@@ -137,6 +138,8 @@ namespace CG_SK_Lab1
                     match = true;
                     nstatus.Visible = true;
                     nstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\checkmark.png";
+                    xlApp.Cells[i, 2] = verified.Text;                                         // set value to new attend
+                    xlWorkBook.Save(); 
 
                 }
                 else // Cell is not name
@@ -145,14 +148,28 @@ namespace CG_SK_Lab1
                     cellname = "A" + i.ToString();                                          // Set next cell
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);        // Get name
                     if (xlcell.Value != null)                                               // if its not empty
-                        name = xlcell.Value.ToString();                                     // set as a string
+                    name = xlcell.Value.ToString();                                         // set as a string
                 }
             }
             if (!match) // Admin Name was not found
             {
                 nstatus.Visible = true;
                 nstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\error.png";
-                // this.ActiveControl = nameText;                                             // Put Cusor in admin username field
+            }
+        }
+
+        private void verified_TextChanged(object sender, EventArgs e)
+        {
+            check_passwords();
+        }
+
+        private void commit_Click(object sender, EventArgs e)
+        {
+            check_passwords();
+            if (matchingpwds)
+            {
+                updatepassword();
+                this.Close();
             }
         }
 
