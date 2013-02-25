@@ -12,6 +12,8 @@ namespace CG_SK_Lab1
 {
     public partial class EnrollCadet : Form
     {
+        System.Drawing.Image checkmark = CG_SK_Lab1.Properties.Resources.checkmark;
+        System.Drawing.Image error = CG_SK_Lab1.Properties.Resources.error;
         public EnrollCadet()
         {
             InitializeComponent();
@@ -30,6 +32,7 @@ namespace CG_SK_Lab1
         private void nameText_Leave(object sender, EventArgs e)
         {
             newname = false;
+            nstatus.Image = error;
             if (nameText.Text != "")
                 check_for_name();
         }
@@ -37,8 +40,9 @@ namespace CG_SK_Lab1
         private void check_for_name()
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
-            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
+            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path for github
+            //string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //path for Mac-228
+            string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Administrators
@@ -56,7 +60,7 @@ namespace CG_SK_Lab1
                 {
                     match = true;
                     nstatus.Visible = true;
-                    nstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\error.png";
+                    nstatus.Image = error;
 
                 }
                 else // Cell is not name
@@ -71,7 +75,7 @@ namespace CG_SK_Lab1
             if (!match) // Cadet Name was not found
             {
                 nstatus.Visible = true;
-                nstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\checkmark.png";
+                nstatus.Image = checkmark;
                 newname = true;
             }
         }
@@ -79,6 +83,7 @@ namespace CG_SK_Lab1
         private void bcText_Leave(object sender, EventArgs e)
         {
             newcode = false;
+            bstatus.Image = error;
             if (bcText.Text != "")
                 check_for_code();
         }
@@ -86,8 +91,9 @@ namespace CG_SK_Lab1
         private void check_for_code()
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
-            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
+            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path for github
+            //string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //path for Mac-228
+            string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Administrators
@@ -105,7 +111,7 @@ namespace CG_SK_Lab1
                 {
                     match = true;
                     bstatus.Visible = true;
-                    bstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\error.png";
+                    bstatus.Image = error;
 
                 }
                 else // Cell is not name
@@ -120,7 +126,7 @@ namespace CG_SK_Lab1
             if (!match) // Cadet Name was not found
             {
                 bstatus.Visible = true;
-                bstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\checkmark.png";
+                bstatus.Image = checkmark;
                 newcode = true;
             }
         }
@@ -135,7 +141,7 @@ namespace CG_SK_Lab1
                     validpin = false;
                 if (validpin && newcode && newname)
                 {
-                    //Add Cadet to filee
+                    //Add Cadet to file
                 }
                 else
                 {

@@ -31,6 +31,8 @@ namespace CG_SK_Lab1
             InitializeComponent();
         }
         public bool matchingpwds = false;
+        System.Drawing.Image checkmark = CG_SK_Lab1.Properties.Resources.checkmark;
+        System.Drawing.Image error = CG_SK_Lab1.Properties.Resources.error;
         private void ChangePassword_Load(object sender, EventArgs e)
         {
             pstatus.Visible = false;
@@ -66,7 +68,7 @@ namespace CG_SK_Lab1
                 {
                     match = true;
                     nstatus.Visible = true;
-                    nstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\checkmark.png";
+                    nstatus.Image = checkmark;
                     
                 }
                 else // Cell is not name
@@ -81,7 +83,7 @@ namespace CG_SK_Lab1
             if (!match) // Admin Name was not found
             {
                 nstatus.Visible = true;
-                nstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\error.png";
+                nstatus.Image = error;
                // this.ActiveControl = nameText;                                             // Put Cusor in admin username field
             }
         }
@@ -105,13 +107,13 @@ namespace CG_SK_Lab1
             if (pinText.Text == verified.Text)
             {
                 pstatus.Visible = true;
-                pstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\checkmark.png";
+                pstatus.Image = checkmark;
                 matchingpwds = true;
             }
             else
             {
                 pstatus.Visible = true;
-                pstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\error.png";
+                pstatus.Image = error;
                 matchingpwds = false;
             }
         }
@@ -137,7 +139,7 @@ namespace CG_SK_Lab1
                 {
                     match = true;
                     nstatus.Visible = true;
-                    nstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\checkmark.png";
+                    nstatus.Image = checkmark;
                     xlApp.Cells[i, 2] = verified.Text;                                         // set value to new attend
                     xlWorkBook.Save(); 
 
@@ -154,7 +156,7 @@ namespace CG_SK_Lab1
             if (!match) // Admin Name was not found
             {
                 nstatus.Visible = true;
-                nstatus.ImageLocation = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\error.png";
+                nstatus.Image = error;
             }
         }
 
