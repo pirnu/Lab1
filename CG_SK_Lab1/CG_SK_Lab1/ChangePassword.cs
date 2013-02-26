@@ -49,8 +49,9 @@ namespace CG_SK_Lab1
         private void check_database_name() 
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            string workbookpath = "C:\\Users\\CADET14297\\Documents\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb";//path
-            //string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Administrators
@@ -120,8 +121,9 @@ namespace CG_SK_Lab1
         private void updatepassword()
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb";//path
-            //string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Administrators
@@ -140,7 +142,7 @@ namespace CG_SK_Lab1
                     match = true;
                     nstatus.Visible = true;
                     nstatus.Image = checkmark;
-                    xlApp.Cells[i, 2] = verified.Text;                                         // set value to new attend
+                    xlworksheet.Cells[i, 2] = verified.Text;                                         // set value to new attend
                     xlWorkBook.Save(); 
 
                 }

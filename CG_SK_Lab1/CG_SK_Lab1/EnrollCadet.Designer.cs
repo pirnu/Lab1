@@ -116,6 +116,7 @@
             this.addcadet.TabIndex = 7;
             this.addcadet.Text = "Add Cadet";
             this.addcadet.UseVisualStyleBackColor = true;
+            this.addcadet.Click += new System.EventHandler(this.addcadet_Click);
             // 
             // title
             // 

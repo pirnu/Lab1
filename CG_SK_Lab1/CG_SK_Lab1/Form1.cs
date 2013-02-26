@@ -166,8 +166,9 @@ namespace CG_SK_Lab1
         {
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb";
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Cadet Users
@@ -195,7 +196,7 @@ namespace CG_SK_Lab1
                        
                         //update database
                         attend = attend+1;                                                  // increase attend by 1
-                        xlApp.Cells[i, 4] = attend;                                         // set value to new attend
+                        xlworksheet.Cells[i, 4] = attend;                                         // set value to new attend
                         xlWorkBook.Save();                                                  // save the change
                         //reset form
                         UPinText.Text = ""; 
@@ -213,7 +214,7 @@ namespace CG_SK_Lab1
                         if (asi.getstatus())                                                // If admin allowed override
                         {
                             attend = attend+1;                                              // Increase attendance by one
-                            xlApp.Cells[i, 4] = attend;                                     // Put value in spreadsheet
+                            xlworksheet.Cells[i, 4] = attend;                                     // Put value in spreadsheet
                             xlWorkBook.Save();                                              // Save value
                             access.Text = "Overide Accepted";                               // Grant Access
                             access.ForeColor = Color.Green;
@@ -246,9 +247,9 @@ namespace CG_SK_Lab1
         private void check_database_np() //check with name and pin
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path for github
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //Path for Mac-210
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Cadet Users
@@ -281,7 +282,7 @@ namespace CG_SK_Lab1
                             match = true;                                                   // Match has been Found
                             //update database
                             attend = attend + 1;                                            // Increase attendance by one
-                            xlApp.Cells[i, 4] = attend;                                     // Put value in spreadsheet
+                            xlworksheet.Cells[i, 4] = attend;                                     // Put value in spreadsheet
                             xlWorkBook.Save();                                              // Save value
                             //reset form
                             UPinText.Text = "";
@@ -299,7 +300,7 @@ namespace CG_SK_Lab1
                             if (asi.getstatus())                                            // If admin overrides
                             {
                                 attend = attend + 1;                                        // Increase attendance by one
-                                xlApp.Cells[i, 4] = attend;                                 // Put value in spreadsheet
+                                xlworksheet.Cells[i, 4] = attend;                                 // Put value in spreadsheet
                                 xlWorkBook.Save();                                          // Save value
                                 access.Text = "Overide Accepted";                           // Grant Access
                                 access.ForeColor = Color.Green;
@@ -346,9 +347,9 @@ namespace CG_SK_Lab1
         private void check_database_admin() //check with name and pin
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
-            //string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //Path for Mac-210
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Admin";                                                  // Set current sheet to be Administrators

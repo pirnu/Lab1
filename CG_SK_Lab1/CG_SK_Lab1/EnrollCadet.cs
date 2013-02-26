@@ -27,6 +27,9 @@ namespace CG_SK_Lab1
             newname = false;
             newcode = false;
             validpin = false;
+            nameText.Text = "";
+            pinText.Text = "";
+            bcText.Text = "";
         }
 
         private void nameText_Leave(object sender, EventArgs e)
@@ -40,9 +43,9 @@ namespace CG_SK_Lab1
         private void check_for_name()
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb";//path for github
-            //string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //Path for Mac-210
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Administrators
@@ -91,9 +94,9 @@ namespace CG_SK_Lab1
         private void check_for_code()
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb";//path for github
-            //string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb"; //Path for Mac-210
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Administrators
@@ -141,7 +144,9 @@ namespace CG_SK_Lab1
                     validpin = false;
                 if (validpin && newcode && newname)
                 {
-                    //Add Cadet to file
+                    add_cadet_2db();
+                    this.Close();
+
                 }
                 else
                 {
@@ -156,5 +161,49 @@ namespace CG_SK_Lab1
             this.Close();
         }
 
+        private void addcadet_Click(object sender, EventArgs e)
+        {
+            if (pinText.Text != "")
+                validpin = true;
+            else
+            {
+                directions.Text = "Your Form is not Complete";
+                directions.ForeColor = Color.Red;
+            }   
+            if (newname && newcode && validpin)
+            {
+                add_cadet_2db();
+                this.Close();
+            }
+        }
+        private void add_cadet_2db()
+        {
+                //Initializes Database
+                Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+                // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+                string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+                //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
+                Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+                Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+                string currentSheet = "Users";                                                  // Set current sheet to be Cadet Users
+                Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
+
+                string cellname = "A2";                                                         // First cell with name
+                Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
+                int i = 2;                                                                      // current row is two
+                while (xlcell.Value != null)                                                    // while its not the bottom of the db and a match has not been found
+                {
+                    i++;                                                                        // Move down a row
+                    cellname = "A" + i.ToString();                                              // Set next cell
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);            // Get name
+                }
+
+                
+                xlworksheet.Cells[i, 1] = nameText.Text;                                        // Enroll New Name
+                xlworksheet.Cells[i, 2] = pinText.Text;                                         // Enroll New Pin
+                xlworksheet.Cells[i, 3] = bcText.Text;                                          // Enroll New Barcode
+                xlworksheet.Cells[i, 4] = "0";                                                  //initalize attendance
+                xlWorkBook.Save();                                                              // Save value
+        }
     }
 }
