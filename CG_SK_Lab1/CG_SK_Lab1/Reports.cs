@@ -25,6 +25,7 @@ namespace CG_SK_Lab1
 {
     public partial class Reports : Form
     {
+        public string query;
         public Reports()
         {
             InitializeComponent();
@@ -56,6 +57,24 @@ namespace CG_SK_Lab1
             cadetBox.Visible = true;
             mealBox.Visible = false;
             dataGridView1.Visible = true;
+            query = "Select * from [Attendance$]";
+
+            // filename for database - must be in bin/debug folder
+            string file = "testdb.xlsx";
+            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
+            // received lots of help from this link
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
+            DataSet myExcelData = new DataSet();
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
         }
 
         private void mRadio_CheckedChanged(object sender, EventArgs e)
@@ -63,6 +82,7 @@ namespace CG_SK_Lab1
             cadetBox.Visible = false;
             mealBox.Visible = true;
             dataGridView1.Visible = false;
+
         }
 
         private void cadetBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -77,6 +97,82 @@ namespace CG_SK_Lab1
             else
             {
             }
+        }
+
+        private void eRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            cadetBox.Visible = false;
+            mealBox.Visible = false;
+            timelabel.Visible = false;
+            dataGridView1.Visible = true;
+            query = "Select * from [Excusals$]";
+
+            // filename for database - must be in bin/debug folder
+            string file = "testdb.xlsx";
+            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
+            // received lots of help from this link
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
+            DataSet myExcelData = new DataSet();
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
+        }
+
+        private void multRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            cadetBox.Visible = false;
+            mealBox.Visible = false;
+            timelabel.Visible = false;
+            dataGridView1.Visible = true;
+            query = "Multiples";
+
+            // filename for database - must be in bin/debug folder
+            string file = "testdb.xlsx";
+            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
+            // received lots of help from this link
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
+            DataSet myExcelData = new DataSet();
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select * from [Multiples$]", conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
+        }
+
+        private void nameText_Enter(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter && nameText.Text != "")
+            {
+                string cadet = nameText.Text;
+                // filename for database - must be in bin/debug folder
+                string file = "testdb.xlsx";
+                // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
+                // received lots of help from this link
+                OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
+                DataSet myExcelData = new DataSet();
+
+                conn.Open();
+
+                //should be able to get this to change using radio buttons
+                OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select * from [Attendance$]", conn);
+                myDataAdapter.Fill(myExcelData);
+
+                dataGridView1.DataSource = myExcelData.Tables[0];
+
+                conn.Close();
+            }       
         }
 
 

@@ -52,6 +52,10 @@
             this.res5 = new System.Windows.Forms.Label();
             this.res6 = new System.Windows.Forms.Label();
             this.res7 = new System.Windows.Forms.Label();
+            this.eRadio = new System.Windows.Forms.RadioButton();
+            this.multRadio = new System.Windows.Forms.RadioButton();
+            this.nameText = new System.Windows.Forms.TextBox();
+            this.nameLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -294,11 +298,56 @@
             this.res7.TabIndex = 31;
             this.res7.Text = "label19";
             // 
+            // eRadio
+            // 
+            this.eRadio.AutoSize = true;
+            this.eRadio.Location = new System.Drawing.Point(24, 53);
+            this.eRadio.Name = "eRadio";
+            this.eRadio.Size = new System.Drawing.Size(67, 17);
+            this.eRadio.TabIndex = 32;
+            this.eRadio.TabStop = true;
+            this.eRadio.Text = "Excusals";
+            this.eRadio.UseVisualStyleBackColor = true;
+            this.eRadio.CheckedChanged += new System.EventHandler(this.eRadio_CheckedChanged);
+            // 
+            // multRadio
+            // 
+            this.multRadio.AutoSize = true;
+            this.multRadio.Location = new System.Drawing.Point(24, 77);
+            this.multRadio.Name = "multRadio";
+            this.multRadio.Size = new System.Drawing.Size(102, 17);
+            this.multRadio.TabIndex = 33;
+            this.multRadio.TabStop = true;
+            this.multRadio.Text = "Multiple Sign Ins";
+            this.multRadio.UseVisualStyleBackColor = true;
+            this.multRadio.CheckedChanged += new System.EventHandler(this.multRadio_CheckedChanged);
+            // 
+            // nameText
+            // 
+            this.nameText.Location = new System.Drawing.Point(265, 74);
+            this.nameText.Name = "nameText";
+            this.nameText.Size = new System.Drawing.Size(100, 20);
+            this.nameText.TabIndex = 34;
+            this.nameText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.nameText_Enter);
+            // 
+            // nameLabel
+            // 
+            this.nameLabel.AutoSize = true;
+            this.nameLabel.Location = new System.Drawing.Point(268, 55);
+            this.nameLabel.Name = "nameLabel";
+            this.nameLabel.Size = new System.Drawing.Size(94, 13);
+            this.nameLabel.TabIndex = 35;
+            this.nameLabel.Text = "Enter Cadet Name";
+            // 
             // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 280);
+            this.Controls.Add(this.nameLabel);
+            this.Controls.Add(this.nameText);
+            this.Controls.Add(this.multRadio);
+            this.Controls.Add(this.eRadio);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.res7);
             this.Controls.Add(this.res6);
@@ -358,6 +407,10 @@
         private System.Windows.Forms.Label res5;
         private System.Windows.Forms.Label res6;
         private System.Windows.Forms.Label res7;
+        private System.Windows.Forms.RadioButton eRadio;
+        private System.Windows.Forms.RadioButton multRadio;
+        private System.Windows.Forms.TextBox nameText;
+        private System.Windows.Forms.Label nameLabel;
 
     }
 }
