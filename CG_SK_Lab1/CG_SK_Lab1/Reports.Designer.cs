@@ -31,9 +31,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.cRadio = new System.Windows.Forms.RadioButton();
             this.mRadio = new System.Windows.Forms.RadioButton();
-            this.mealBox = new System.Windows.Forms.ComboBox();
-            this.cadetBox = new System.Windows.Forms.ComboBox();
-            this.timelabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -56,6 +53,22 @@
             this.multRadio = new System.Windows.Forms.RadioButton();
             this.nameText = new System.Windows.Forms.TextBox();
             this.nameLabel = new System.Windows.Forms.Label();
+            this.month1 = new System.Windows.Forms.TextBox();
+            this.day1 = new System.Windows.Forms.TextBox();
+            this.year1 = new System.Windows.Forms.TextBox();
+            this.month2 = new System.Windows.Forms.TextBox();
+            this.day2 = new System.Windows.Forms.TextBox();
+            this.year2 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.search = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,41 +103,6 @@
             this.mRadio.Text = "Meal";
             this.mRadio.UseVisualStyleBackColor = true;
             this.mRadio.CheckedChanged += new System.EventHandler(this.mRadio_CheckedChanged);
-            // 
-            // mealBox
-            // 
-            this.mealBox.FormattingEnabled = true;
-            this.mealBox.Items.AddRange(new object[] {
-            "Day",
-            "Week",
-            "Month",
-            "Year"});
-            this.mealBox.Location = new System.Drawing.Point(265, 26);
-            this.mealBox.Name = "mealBox";
-            this.mealBox.Size = new System.Drawing.Size(121, 21);
-            this.mealBox.TabIndex = 3;
-            // 
-            // cadetBox
-            // 
-            this.cadetBox.FormattingEnabled = true;
-            this.cadetBox.Items.AddRange(new object[] {
-            "Week",
-            "Month",
-            "Year"});
-            this.cadetBox.Location = new System.Drawing.Point(265, 26);
-            this.cadetBox.Name = "cadetBox";
-            this.cadetBox.Size = new System.Drawing.Size(121, 21);
-            this.cadetBox.TabIndex = 4;
-            this.cadetBox.SelectedIndexChanged += new System.EventHandler(this.cadetBox_SelectedIndexChanged);
-            // 
-            // timelabel
-            // 
-            this.timelabel.AutoSize = true;
-            this.timelabel.Location = new System.Drawing.Point(265, 7);
-            this.timelabel.Name = "timelabel";
-            this.timelabel.Size = new System.Drawing.Size(101, 13);
-            this.timelabel.TabIndex = 5;
-            this.timelabel.Text = "Choose Time Frame";
             // 
             // label1
             // 
@@ -324,7 +302,7 @@
             // 
             // nameText
             // 
-            this.nameText.Location = new System.Drawing.Point(265, 74);
+            this.nameText.Location = new System.Drawing.Point(151, 30);
             this.nameText.Name = "nameText";
             this.nameText.Size = new System.Drawing.Size(100, 20);
             this.nameText.TabIndex = 34;
@@ -333,17 +311,166 @@
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
-            this.nameLabel.Location = new System.Drawing.Point(268, 55);
+            this.nameLabel.Location = new System.Drawing.Point(157, 9);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(94, 13);
             this.nameLabel.TabIndex = 35;
             this.nameLabel.Text = "Enter Cadet Name";
+            // 
+            // month1
+            // 
+            this.month1.Location = new System.Drawing.Point(302, 76);
+            this.month1.Name = "month1";
+            this.month1.Size = new System.Drawing.Size(62, 20);
+            this.month1.TabIndex = 36;
+            // 
+            // day1
+            // 
+            this.day1.Location = new System.Drawing.Point(273, 76);
+            this.day1.Name = "day1";
+            this.day1.Size = new System.Drawing.Size(23, 20);
+            this.day1.TabIndex = 37;
+            // 
+            // year1
+            // 
+            this.year1.Location = new System.Drawing.Point(370, 77);
+            this.year1.Name = "year1";
+            this.year1.Size = new System.Drawing.Size(44, 20);
+            this.year1.TabIndex = 38;
+            // 
+            // month2
+            // 
+            this.month2.Location = new System.Drawing.Point(450, 76);
+            this.month2.Name = "month2";
+            this.month2.Size = new System.Drawing.Size(66, 20);
+            this.month2.TabIndex = 39;
+            // 
+            // day2
+            // 
+            this.day2.Location = new System.Drawing.Point(421, 76);
+            this.day2.Name = "day2";
+            this.day2.Size = new System.Drawing.Size(22, 20);
+            this.day2.TabIndex = 40;
+            // 
+            // year2
+            // 
+            this.year2.Location = new System.Drawing.Point(522, 76);
+            this.year2.Name = "year2";
+            this.year2.Size = new System.Drawing.Size(44, 20);
+            this.year2.TabIndex = 41;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(270, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(33, 13);
+            this.label9.TabIndex = 42;
+            this.label9.Text = "From:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(420, 30);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(23, 13);
+            this.label10.TabIndex = 43;
+            this.label10.Text = "To:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(304, 55);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(36, 13);
+            this.label11.TabIndex = 44;
+            this.label11.Text = "month";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(270, 57);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(23, 13);
+            this.label15.TabIndex = 45;
+            this.label15.Text = "DD";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(367, 57);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(35, 13);
+            this.label16.TabIndex = 46;
+            this.label16.Text = "YYYY";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(447, 53);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(36, 13);
+            this.label17.TabIndex = 47;
+            this.label17.Text = "month";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(420, 53);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(23, 13);
+            this.label18.TabIndex = 48;
+            this.label18.Text = "DD";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(519, 55);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(35, 13);
+            this.label19.TabIndex = 49;
+            this.label19.Text = "YYYY";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(307, 9);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(230, 13);
+            this.label20.TabIndex = 50;
+            this.label20.Text = "Search Dates (Type month name all lowercase)";
+            // 
+            // search
+            // 
+            this.search.Location = new System.Drawing.Point(572, 55);
+            this.search.Name = "search";
+            this.search.Size = new System.Drawing.Size(75, 47);
+            this.search.TabIndex = 51;
+            this.search.Text = "Search";
+            this.search.UseVisualStyleBackColor = true;
+            this.search.Click += new System.EventHandler(this.search_Click);
             // 
             // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 280);
+            this.Controls.Add(this.search);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.year2);
+            this.Controls.Add(this.day2);
+            this.Controls.Add(this.month2);
+            this.Controls.Add(this.year1);
+            this.Controls.Add(this.day1);
+            this.Controls.Add(this.month1);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.nameText);
             this.Controls.Add(this.multRadio);
@@ -367,9 +494,6 @@
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.timelabel);
-            this.Controls.Add(this.cadetBox);
-            this.Controls.Add(this.mealBox);
             this.Controls.Add(this.mRadio);
             this.Controls.Add(this.cRadio);
             this.Name = "Reports";
@@ -386,9 +510,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.RadioButton cRadio;
         private System.Windows.Forms.RadioButton mRadio;
-        private System.Windows.Forms.ComboBox mealBox;
-        private System.Windows.Forms.ComboBox cadetBox;
-        private System.Windows.Forms.Label timelabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label12;
@@ -411,6 +532,22 @@
         private System.Windows.Forms.RadioButton multRadio;
         private System.Windows.Forms.TextBox nameText;
         private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.TextBox month1;
+        private System.Windows.Forms.TextBox day1;
+        private System.Windows.Forms.TextBox year1;
+        private System.Windows.Forms.TextBox month2;
+        private System.Windows.Forms.TextBox day2;
+        private System.Windows.Forms.TextBox year2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button search;
 
     }
 }

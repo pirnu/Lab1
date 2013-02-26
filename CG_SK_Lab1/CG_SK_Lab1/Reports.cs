@@ -26,9 +26,11 @@ namespace CG_SK_Lab1
     public partial class Reports : Form
     {
         public string query;
+        public string sheet;
         public Reports()
         {
             InitializeComponent();
+            sheet = "Attendance";
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
             // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
@@ -49,15 +51,14 @@ namespace CG_SK_Lab1
 
         private void Reports_Load(object sender, EventArgs e)
         {
-
+            sheet = "Attendance";
         }
 
         private void cRadio_CheckedChanged(object sender, EventArgs e)
         {
-            cadetBox.Visible = true;
-            mealBox.Visible = false;
             dataGridView1.Visible = true;
             query = "Select * from [Attendance$]";
+            sheet = "Attendance";
 
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
@@ -79,34 +80,21 @@ namespace CG_SK_Lab1
 
         private void mRadio_CheckedChanged(object sender, EventArgs e)
         {
-            cadetBox.Visible = false;
-            mealBox.Visible = true;
             dataGridView1.Visible = false;
 
         }
 
         private void cadetBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cadetBox.Text == "Week")
-            {
-                
-            }
-            else if (cadetBox.Text == "Month")
-            {
-            }
-            else
-            {
-            }
+
         }
 
         private void eRadio_CheckedChanged(object sender, EventArgs e)
         {
-            cadetBox.Visible = false;
-            mealBox.Visible = false;
-            timelabel.Visible = false;
             dataGridView1.Visible = true;
             query = "Select * from [Excusals$]";
-
+            sheet = "Excusals";
+            
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
             // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
@@ -127,11 +115,9 @@ namespace CG_SK_Lab1
 
         private void multRadio_CheckedChanged(object sender, EventArgs e)
         {
-            cadetBox.Visible = false;
-            mealBox.Visible = false;
-            timelabel.Visible = false;
             dataGridView1.Visible = true;
-            query = "Multiples";
+            query = "Select * from [Multiples$]";
+            sheet = "Multiples";
 
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
@@ -143,7 +129,7 @@ namespace CG_SK_Lab1
             conn.Open();
 
             //should be able to get this to change using radio buttons
-            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select * from [Multiples$]", conn);
+            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
             myDataAdapter.Fill(myExcelData);
 
             dataGridView1.DataSource = myExcelData.Tables[0];
@@ -158,6 +144,7 @@ namespace CG_SK_Lab1
                 string cadet = nameText.Text;
                 // filename for database - must be in bin/debug folder
                 string file = "testdb.xlsx";
+                query = "Select * from [" + sheet + "$] Where Name = '"+cadet+"'";
                 // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
                 // received lots of help from this link
                 OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
@@ -166,7 +153,7 @@ namespace CG_SK_Lab1
                 conn.Open();
 
                 //should be able to get this to change using radio buttons
-                OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select * from [Attendance$]", conn);
+                OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
                 myDataAdapter.Fill(myExcelData);
 
                 dataGridView1.DataSource = myExcelData.Tables[0];
@@ -175,6 +162,53 @@ namespace CG_SK_Lab1
             }       
         }
 
+        private void search_Click(object sender, EventArgs e)
+        {
+            string m1 = month1.Text;
+            string d1 = day1.Text;
+            string y1 = year1.Text;
 
+            string m2 = month2.Text;
+            string d2 = day2.Text;
+            string y2 = year2.Text;
+
+            string date1 = d1+"-"+m1+"-"+y1;
+            string date2 = d2+"-"+m2+"-"+y2;
+
+            string cadet = nameText.Text;
+
+            if (m1 == "" || m2 == "" || d1 == "" || d2 == "" || y1 == "" || y2 == "")
+            {
+                //Put some sort of Error onto screen
+            }
+            else
+            {
+                if (nameText.Text == "")
+                {
+                    query = "Select * from [" + sheet + "$] Where TimeStamp Between '" + date1 + "' And '" + date2 + "'";
+                }
+                else
+                {
+                    query = "Select * from [" + sheet + "$] Where TimeStamp Between '" + date1 + "' And '" + date2 + "' And Name = '"+cadet+"'";
+                }
+                // filename for database - must be in bin/debug folder
+                string file = "testdb.xlsx";
+                query = "Select * from [" + sheet + "$] Where Name = '" + cadet + "'";
+                // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
+                // received lots of help from this link
+                OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
+                DataSet myExcelData = new DataSet();
+
+                conn.Open();
+
+                //should be able to get this to change using radio buttons
+                OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
+                myDataAdapter.Fill(myExcelData);
+
+                dataGridView1.DataSource = myExcelData.Tables[0];
+
+                conn.Close();
+            }
+        }
     }
 }
