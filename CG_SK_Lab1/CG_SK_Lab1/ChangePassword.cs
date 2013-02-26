@@ -31,8 +31,8 @@ namespace CG_SK_Lab1
             InitializeComponent();
         }
         public bool matchingpwds = false;
-        System.Drawing.Image checkmark = CG_SK_Lab1.Properties.Resources.checkmark;
-        System.Drawing.Image error = CG_SK_Lab1.Properties.Resources.error;
+        //System.Drawing.Image checkmark = CG_SK_Lab1.Properties.Resources.checkmark;
+        //System.Drawing.Image error = CG_SK_Lab1.Properties.Resources.error;
         private void ChangePassword_Load(object sender, EventArgs e)
         {
             pstatus.Visible = false;
@@ -49,8 +49,8 @@ namespace CG_SK_Lab1
         private void check_database_name() 
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
-            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
+            string workbookpath = "C:\\Users\\CADET14297\\Documents\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb";//path
+            //string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Administrators
@@ -68,7 +68,7 @@ namespace CG_SK_Lab1
                 {
                     match = true;
                     nstatus.Visible = true;
-                    nstatus.Image = checkmark;
+                    //nstatus.Image = checkmark;
                     
                 }
                 else // Cell is not name
@@ -83,7 +83,7 @@ namespace CG_SK_Lab1
             if (!match) // Admin Name was not found
             {
                 nstatus.Visible = true;
-                nstatus.Image = error;
+                //nstatus.Image = error;
                // this.ActiveControl = nameText;                                             // Put Cusor in admin username field
             }
         }
@@ -107,21 +107,21 @@ namespace CG_SK_Lab1
             if (pinText.Text == verified.Text)
             {
                 pstatus.Visible = true;
-                pstatus.Image = checkmark;
+                //pstatus.Image = checkmark;
                 matchingpwds = true;
             }
             else
             {
                 pstatus.Visible = true;
-                pstatus.Image = error;
+                //pstatus.Image = error;
                 matchingpwds = false;
             }
         }
         private void updatepassword()
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            //string workbookpath = "C:\\Users\\Network Student\\Documents\\GitHub\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";//path
-            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
+            string workbookpath = "C:\\Users\\Network Student\\Documents\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb";//path
+            //string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\testdb";
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Administrators
@@ -139,7 +139,7 @@ namespace CG_SK_Lab1
                 {
                     match = true;
                     nstatus.Visible = true;
-                    nstatus.Image = checkmark;
+                    //nstatus.Image = checkmark;
                     xlApp.Cells[i, 2] = verified.Text;                                         // set value to new attend
                     xlWorkBook.Save(); 
 
@@ -156,7 +156,7 @@ namespace CG_SK_Lab1
             if (!match) // Admin Name was not found
             {
                 nstatus.Visible = true;
-                nstatus.Image = error;
+                //nstatus.Image = error;
             }
         }
 

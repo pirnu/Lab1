@@ -51,5 +51,34 @@ namespace CG_SK_Lab1
 
         }
 
+        private void cRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            cadetBox.Visible = true;
+            mealBox.Visible = false;
+            dataGridView1.Visible = true;
+        }
+
+        private void mRadio_CheckedChanged(object sender, EventArgs e)
+        {
+            cadetBox.Visible = false;
+            mealBox.Visible = true;
+            dataGridView1.Visible = false;
+        }
+
+        private void cadetBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cadetBox.Text == "Week")
+            {
+                
+            }
+            else if (cadetBox.Text == "Month")
+            {
+            }
+            else
+            {
+            }
+        }
+
+
     }
 }
