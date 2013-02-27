@@ -319,42 +319,42 @@
             // 
             // month1
             // 
-            this.month1.Location = new System.Drawing.Point(302, 76);
+            this.month1.Location = new System.Drawing.Point(273, 74);
             this.month1.Name = "month1";
-            this.month1.Size = new System.Drawing.Size(62, 20);
+            this.month1.Size = new System.Drawing.Size(20, 20);
             this.month1.TabIndex = 36;
             // 
             // day1
             // 
-            this.day1.Location = new System.Drawing.Point(273, 76);
+            this.day1.Location = new System.Drawing.Point(307, 76);
             this.day1.Name = "day1";
-            this.day1.Size = new System.Drawing.Size(23, 20);
+            this.day1.Size = new System.Drawing.Size(33, 20);
             this.day1.TabIndex = 37;
             // 
             // year1
             // 
-            this.year1.Location = new System.Drawing.Point(370, 77);
+            this.year1.Location = new System.Drawing.Point(358, 76);
             this.year1.Name = "year1";
             this.year1.Size = new System.Drawing.Size(44, 20);
             this.year1.TabIndex = 38;
             // 
             // month2
             // 
-            this.month2.Location = new System.Drawing.Point(450, 76);
+            this.month2.Location = new System.Drawing.Point(419, 77);
             this.month2.Name = "month2";
-            this.month2.Size = new System.Drawing.Size(66, 20);
+            this.month2.Size = new System.Drawing.Size(22, 20);
             this.month2.TabIndex = 39;
             // 
             // day2
             // 
-            this.day2.Location = new System.Drawing.Point(421, 76);
+            this.day2.Location = new System.Drawing.Point(450, 76);
             this.day2.Name = "day2";
             this.day2.Size = new System.Drawing.Size(22, 20);
             this.day2.TabIndex = 40;
             // 
             // year2
             // 
-            this.year2.Location = new System.Drawing.Point(522, 76);
+            this.year2.Location = new System.Drawing.Point(478, 76);
             this.year2.Name = "year2";
             this.year2.Size = new System.Drawing.Size(44, 20);
             this.year2.TabIndex = 41;
@@ -380,16 +380,16 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(304, 55);
+            this.label11.Location = new System.Drawing.Point(270, 58);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(36, 13);
+            this.label11.Size = new System.Drawing.Size(25, 13);
             this.label11.TabIndex = 44;
-            this.label11.Text = "month";
+            this.label11.Text = "MM";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(270, 57);
+            this.label15.Location = new System.Drawing.Point(304, 57);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(23, 13);
             this.label15.TabIndex = 45;
@@ -398,7 +398,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(367, 57);
+            this.label16.Location = new System.Drawing.Point(355, 57);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(35, 13);
             this.label16.TabIndex = 46;
@@ -407,16 +407,16 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(447, 53);
+            this.label17.Location = new System.Drawing.Point(418, 53);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(36, 13);
+            this.label17.Size = new System.Drawing.Size(25, 13);
             this.label17.TabIndex = 47;
-            this.label17.Text = "month";
+            this.label17.Text = "MM";
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(420, 53);
+            this.label18.Location = new System.Drawing.Point(449, 53);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(23, 13);
             this.label18.TabIndex = 48;
@@ -425,7 +425,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(519, 55);
+            this.label19.Location = new System.Drawing.Point(478, 55);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(35, 13);
             this.label19.TabIndex = 49;

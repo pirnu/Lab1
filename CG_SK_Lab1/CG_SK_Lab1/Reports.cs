@@ -172,10 +172,24 @@ namespace CG_SK_Lab1
             string d2 = day2.Text;
             string y2 = year2.Text;
 
-            string date1 = d1+"-"+m1+"-"+y1;
-            string date2 = d2+"-"+m2+"-"+y2;
+            string date1 = m1+"/"+d1+"/"+y1+" 12:00:00 AM";
+            string date2 = m2+"/"+d2+"/"+y2+" 12:00:00 AM";
 
             string cadet = nameText.Text;
+
+            //Initializes Database
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Attendance";                                                  // Set current sheet to be Cadet Users
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
+
+            string cellname = "B2";                                                         // First cell with scanned ID #
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
+            string code = xlcell.Value.ToString();
 
             if (m1 == "" || m2 == "" || d1 == "" || d2 == "" || y1 == "" || y2 == "")
             {
@@ -185,7 +199,7 @@ namespace CG_SK_Lab1
             {
                 if (nameText.Text == "")
                 {
-                    query = "Select * from [" + sheet + "$] Where TimeStamp Between '" + date1 + "' And '" + date2 + "'";
+                    query = "Select * from [" + sheet + "$] Where TimeStamp Between " + date1 + " And " + date2 + " select ";
                 }
                 else
                 {
@@ -193,7 +207,6 @@ namespace CG_SK_Lab1
                 }
                 // filename for database - must be in bin/debug folder
                 string file = "testdb.xlsx";
-                query = "Select * from [" + sheet + "$] Where Name = '" + cadet + "'";
                 // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
                 // received lots of help from this link
                 OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
