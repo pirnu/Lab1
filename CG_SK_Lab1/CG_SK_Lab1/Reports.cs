@@ -46,7 +46,7 @@ namespace CG_SK_Lab1
 
        //     dataGridView1.DataSource = myExcelData.Tables[0];
 
-        //    conn.Close();
+            conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
         }
 
         private void Reports_Load(object sender, EventArgs e)
@@ -172,24 +172,36 @@ namespace CG_SK_Lab1
             string d2 = day2.Text;
             string y2 = year2.Text;
 
-            string date1 = m1+"/"+d1+"/"+y1+" 12:00:00 AM";
-            string date2 = m2+"/"+d2+"/"+y2+" 12:00:00 AM";
+            string date1 = m1+"/"+d1+"/"+y1;
+            string date2 = m2+"/"+d2+"/"+y2;
 
             string cadet = nameText.Text;
+
+            // AFTER RETRIEVING ALL INFO, WE NEED TO CONVERT INTO EXCEL AND GRAB ITS FORMATTED VERSION
 
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
             //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Attendance";                                                  // Set current sheet to be Cadet Users
             Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
 
-            string cellname = "B2";                                                         // First cell with scanned ID #
-            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
-            string code = xlcell.Value.ToString();
+            //input dates
+            xlworksheet.Cells[2, 6] = date1;
+            xlworksheet.Cells[3, 6] = date2;
+            //change form
+            xlworksheet.Cells[2, 6].NumberFormat = "General";
+            xlworksheet.Cells[3, 6].NumberFormat = "General";
+            //collect dates and store back into value
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range("F2", "F2");    // store in xlcell
+            date1 = xlcell.Value.ToString();                                          // store value in xlcell as a string
+            xlcell = (Excel.Range)xlworksheet.get_Range("F3", "F3");    // store in xlcell
+            date2 = xlcell.Value.ToString();
+
+            //now we search it against those values... our database will need to autoadd the "excelform" column when we enroll cadets..i'll fix that soon.
 
             if (m1 == "" || m2 == "" || d1 == "" || d2 == "" || y1 == "" || y2 == "")
             {
@@ -199,11 +211,11 @@ namespace CG_SK_Lab1
             {
                 if (nameText.Text == "")
                 {
-                    query = "Select * from [" + sheet + "$] Where TimeStamp Between " + date1 + " And " + date2 + " select ";
+                    query = "Select Name, TimeStamp from [" + sheet + "$] Where excelform >= " + date1 + " And  excelform <= " + date2;
                 }
                 else
                 {
-                    query = "Select * from [" + sheet + "$] Where TimeStamp Between '" + date1 + "' And '" + date2 + "' And Name = '"+cadet+"'";
+                    query = "Select Name, Timestamp from [" + sheet + "$] Where excelform >= " + date1 + " And  excelform <= " + date2 + " And Name = '" + cadet + "'";
                 }
                 // filename for database - must be in bin/debug folder
                 string file = "testdb.xlsx";
