@@ -31,24 +31,10 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.cRadio = new System.Windows.Forms.RadioButton();
             this.mRadio = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.res1 = new System.Windows.Forms.Label();
-            this.res2 = new System.Windows.Forms.Label();
-            this.res3 = new System.Windows.Forms.Label();
-            this.res4 = new System.Windows.Forms.Label();
-            this.res5 = new System.Windows.Forms.Label();
-            this.res6 = new System.Windows.Forms.Label();
-            this.res7 = new System.Windows.Forms.Label();
             this.eRadio = new System.Windows.Forms.RadioButton();
             this.multRadio = new System.Windows.Forms.RadioButton();
             this.nameText = new System.Windows.Forms.TextBox();
@@ -69,6 +55,8 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.search = new System.Windows.Forms.Button();
+            this.blank = new System.Windows.Forms.Label();
+            this.mealLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -104,16 +92,6 @@
             this.mRadio.UseVisualStyleBackColor = true;
             this.mRadio.CheckedChanged += new System.EventHandler(this.mRadio_CheckedChanged);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(52, 134);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 20);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Monday";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -145,136 +123,6 @@
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(0, 13);
             this.label14.TabIndex = 18;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(52, 158);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 20);
-            this.label2.TabIndex = 19;
-            this.label2.Text = "Tuesday";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(52, 186);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(93, 20);
-            this.label3.TabIndex = 20;
-            this.label3.Text = "Wednesday";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(52, 213);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 20);
-            this.label4.TabIndex = 21;
-            this.label4.Text = "Thursday";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(295, 134);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 20);
-            this.label5.TabIndex = 22;
-            this.label5.Text = "Friday";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(295, 170);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(73, 20);
-            this.label6.TabIndex = 23;
-            this.label6.Text = "Saturday";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(295, 206);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(63, 20);
-            this.label7.TabIndex = 24;
-            this.label7.Text = "Sunday";
-            // 
-            // res1
-            // 
-            this.res1.AutoSize = true;
-            this.res1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.res1.Location = new System.Drawing.Point(170, 134);
-            this.res1.Name = "res1";
-            this.res1.Size = new System.Drawing.Size(60, 20);
-            this.res1.TabIndex = 25;
-            this.res1.Text = "label10";
-            // 
-            // res2
-            // 
-            this.res2.AutoSize = true;
-            this.res2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.res2.Location = new System.Drawing.Point(170, 158);
-            this.res2.Name = "res2";
-            this.res2.Size = new System.Drawing.Size(60, 20);
-            this.res2.TabIndex = 26;
-            this.res2.Text = "label11";
-            // 
-            // res3
-            // 
-            this.res3.AutoSize = true;
-            this.res3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.res3.Location = new System.Drawing.Point(170, 186);
-            this.res3.Name = "res3";
-            this.res3.Size = new System.Drawing.Size(60, 20);
-            this.res3.TabIndex = 27;
-            this.res3.Text = "label15";
-            // 
-            // res4
-            // 
-            this.res4.AutoSize = true;
-            this.res4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.res4.Location = new System.Drawing.Point(170, 213);
-            this.res4.Name = "res4";
-            this.res4.Size = new System.Drawing.Size(60, 20);
-            this.res4.TabIndex = 28;
-            this.res4.Text = "label16";
-            // 
-            // res5
-            // 
-            this.res5.AutoSize = true;
-            this.res5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.res5.Location = new System.Drawing.Point(383, 134);
-            this.res5.Name = "res5";
-            this.res5.Size = new System.Drawing.Size(60, 20);
-            this.res5.TabIndex = 29;
-            this.res5.Text = "label17";
-            // 
-            // res6
-            // 
-            this.res6.AutoSize = true;
-            this.res6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.res6.Location = new System.Drawing.Point(383, 170);
-            this.res6.Name = "res6";
-            this.res6.Size = new System.Drawing.Size(60, 20);
-            this.res6.TabIndex = 30;
-            this.res6.Text = "label18";
-            // 
-            // res7
-            // 
-            this.res7.AutoSize = true;
-            this.res7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.res7.Location = new System.Drawing.Point(383, 206);
-            this.res7.Name = "res7";
-            this.res7.Size = new System.Drawing.Size(60, 20);
-            this.res7.TabIndex = 31;
-            this.res7.Text = "label19";
             // 
             // eRadio
             // 
@@ -316,6 +164,7 @@
             this.nameLabel.Size = new System.Drawing.Size(94, 13);
             this.nameLabel.TabIndex = 35;
             this.nameLabel.Text = "Enter Cadet Name";
+            this.nameLabel.Visible = false;
             // 
             // month1
             // 
@@ -450,11 +299,31 @@
             this.search.UseVisualStyleBackColor = true;
             this.search.Click += new System.EventHandler(this.search_Click);
             // 
+            // blank
+            // 
+            this.blank.AutoSize = true;
+            this.blank.Location = new System.Drawing.Point(274, 99);
+            this.blank.Name = "blank";
+            this.blank.Size = new System.Drawing.Size(126, 13);
+            this.blank.TabIndex = 52;
+            this.blank.Text = "**Dates Cannot Be Blank";
+            this.blank.Visible = false;
+            // 
+            // mealLabel
+            // 
+            this.mealLabel.AutoSize = true;
+            this.mealLabel.Location = new System.Drawing.Point(157, 9);
+            this.mealLabel.Name = "mealLabel";
+            this.mealLabel.Size = new System.Drawing.Size(89, 13);
+            this.mealLabel.TabIndex = 53;
+            this.mealLabel.Text = "Enter Meal Name";
+            // 
             // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 280);
+            this.Controls.Add(this.blank);
             this.Controls.Add(this.search);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
@@ -471,31 +340,18 @@
             this.Controls.Add(this.year1);
             this.Controls.Add(this.day1);
             this.Controls.Add(this.month1);
-            this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.nameText);
             this.Controls.Add(this.multRadio);
             this.Controls.Add(this.eRadio);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.res7);
-            this.Controls.Add(this.res6);
-            this.Controls.Add(this.res5);
-            this.Controls.Add(this.res4);
-            this.Controls.Add(this.res3);
-            this.Controls.Add(this.res2);
-            this.Controls.Add(this.res1);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.mRadio);
             this.Controls.Add(this.cRadio);
+            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.mealLabel);
+            this.Controls.Add(this.nameLabel);
             this.Name = "Reports";
             this.Text = "Reports";
             this.Load += new System.EventHandler(this.Reports_Load);
@@ -510,24 +366,10 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.RadioButton cRadio;
         private System.Windows.Forms.RadioButton mRadio;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label res1;
-        private System.Windows.Forms.Label res2;
-        private System.Windows.Forms.Label res3;
-        private System.Windows.Forms.Label res4;
-        private System.Windows.Forms.Label res5;
-        private System.Windows.Forms.Label res6;
-        private System.Windows.Forms.Label res7;
         private System.Windows.Forms.RadioButton eRadio;
         private System.Windows.Forms.RadioButton multRadio;
         private System.Windows.Forms.TextBox nameText;
@@ -548,6 +390,8 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button search;
+        private System.Windows.Forms.Label blank;
+        private System.Windows.Forms.Label mealLabel;
 
     }
 }

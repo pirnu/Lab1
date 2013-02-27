@@ -27,9 +27,13 @@ namespace CG_SK_Lab1
     {
         public string query;
         public string sheet;
+        public string ID;
         public Reports()
         {
             InitializeComponent();
+            nameLabel.Visible = true;
+            mealLabel.Visible = false;
+            ID = "Name";
             sheet = "Attendance";
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
@@ -41,7 +45,7 @@ namespace CG_SK_Lab1
             conn.Open();
 
             //should be able to get this to change using radio buttons
-            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select * from [Attendance$]", conn);
+            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select Name,Timestamp from [Attendance$]", conn);
         //    myDataAdapter.Fill(myExcelData);
 
        //     dataGridView1.DataSource = myExcelData.Tables[0];
@@ -51,13 +55,18 @@ namespace CG_SK_Lab1
 
         private void Reports_Load(object sender, EventArgs e)
         {
+            nameLabel.Visible = true;
+            mealLabel.Visible = false;
             sheet = "Attendance";
+            ID = "Name";
         }
 
         private void cRadio_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridView1.Visible = true;
-            query = "Select * from [Attendance$]";
+            ID = "Name";
+            nameLabel.Visible = true;
+            mealLabel.Visible = false;
+            query = "Select Name,Timestamp from [Attendance$]";
             sheet = "Attendance";
 
             // filename for database - must be in bin/debug folder
@@ -80,7 +89,28 @@ namespace CG_SK_Lab1
 
         private void mRadio_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridView1.Visible = false;
+            nameLabel.Visible = false;
+            mealLabel.Visible = true;
+            query = "Select Meal,Date,Attendance from [Totals$]";
+            sheet = "Totals";
+            ID = "Meal";
+
+            // filename for database - must be in bin/debug folder
+            string file = "testdb.xlsx";
+            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
+            // received lots of help from this link
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
+            DataSet myExcelData = new DataSet();
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
 
         }
 
@@ -91,9 +121,11 @@ namespace CG_SK_Lab1
 
         private void eRadio_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridView1.Visible = true;
+            nameLabel.Visible = true;
+            mealLabel.Visible = false;
             query = "Select * from [Excusals$]";
             sheet = "Excusals";
+            ID = "Name";
             
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
@@ -115,9 +147,11 @@ namespace CG_SK_Lab1
 
         private void multRadio_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridView1.Visible = true;
+            nameLabel.Visible = true;
+            mealLabel.Visible = false;
             query = "Select * from [Multiples$]";
             sheet = "Multiples";
+            ID = "Name";
 
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
@@ -144,7 +178,7 @@ namespace CG_SK_Lab1
                 string cadet = nameText.Text;
                 // filename for database - must be in bin/debug folder
                 string file = "testdb.xlsx";
-                query = "Select * from [" + sheet + "$] Where Name = '"+cadet+"'";
+                query = "Select * from [" + sheet + "$] Where "+ID+" = '"+cadet+"'";
                 // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
                 // received lots of help from this link
                 OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
@@ -182,7 +216,7 @@ namespace CG_SK_Lab1
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
-            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
             //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
@@ -205,10 +239,11 @@ namespace CG_SK_Lab1
 
             if (m1 == "" || m2 == "" || d1 == "" || d2 == "" || y1 == "" || y2 == "")
             {
-                //Put some sort of Error onto screen
+                blank.Visible = true; // Put error message for blank
             }
             else
             {
+                blank.Visible = false;
                 if (nameText.Text == "")
                 {
                     query = "Select Name, TimeStamp from [" + sheet + "$] Where excelform >= " + date1 + " And  excelform <= " + date2;
