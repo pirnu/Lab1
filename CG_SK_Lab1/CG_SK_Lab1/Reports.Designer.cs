@@ -57,6 +57,8 @@
             this.search = new System.Windows.Forms.Button();
             this.blank = new System.Windows.Forms.Label();
             this.mealLabel = new System.Windows.Forms.Label();
+            this.numcadets = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -318,11 +320,33 @@
             this.mealLabel.TabIndex = 53;
             this.mealLabel.Text = "Enter Meal Name";
             // 
+            // numcadets
+            // 
+            this.numcadets.AutoSize = true;
+            this.numcadets.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numcadets.Location = new System.Drawing.Point(177, 76);
+            this.numcadets.Name = "numcadets";
+            this.numcadets.Size = new System.Drawing.Size(30, 31);
+            this.numcadets.TabIndex = 54;
+            this.numcadets.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(138, 58);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(113, 16);
+            this.label2.TabIndex = 55;
+            this.label2.Text = "Total Signed In";
+            // 
             // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 280);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.numcadets);
             this.Controls.Add(this.blank);
             this.Controls.Add(this.search);
             this.Controls.Add(this.label20);
@@ -392,6 +416,8 @@
         private System.Windows.Forms.Button search;
         private System.Windows.Forms.Label blank;
         private System.Windows.Forms.Label mealLabel;
+        private System.Windows.Forms.Label numcadets;
+        private System.Windows.Forms.Label label2;
 
     }
 }

@@ -166,7 +166,7 @@ namespace CG_SK_Lab1
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
             //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
@@ -183,6 +183,9 @@ namespace CG_SK_Lab1
 
                 if (UIDText.Text == code)                                                   // check if code matches Value
                 {
+                    cellname = "A" + i.ToString();
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
+                    string cadetname = xlcell.Value();
                     cellname = "D" + i.ToString();                                          // change cell to check attendance
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname); 
                     double attend = xlcell.Value;                                           // store in attend
@@ -195,8 +198,11 @@ namespace CG_SK_Lab1
                        
                         //update database
                         attend = attend+1;                                                  // increase attend by 1
-                        xlworksheet.Cells[i, 4] = attend;                                         // set value to new attend
+                        xlworksheet.Cells[i, 4] = attend;                                   // set value to new attend
                         xlWorkBook.Save();                                                  // save the change
+
+                        //Sign into meal
+                        sign_in_cadet(cadetname);
                         //reset form
                         UPinText.Text = ""; 
                         UNameText.Text = "";
@@ -214,7 +220,9 @@ namespace CG_SK_Lab1
                         {
                             attend = attend+1;                                              // Increase attendance by one
                             xlworksheet.Cells[i, 4] = attend;                                     // Put value in spreadsheet
-                            xlWorkBook.Save();                                              // Save value
+                            xlWorkBook.Save();
+                            //Sign into meal
+                            sign_in_cadet(cadetname);// Save value
                             access.Text = "Overide Accepted";                               // Grant Access
                             access.ForeColor = Color.Green;
                             timer1.Start();                                                 // Only show for 1.5 seconds
@@ -247,7 +255,7 @@ namespace CG_SK_Lab1
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
             //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
@@ -283,6 +291,8 @@ namespace CG_SK_Lab1
                             attend = attend + 1;                                            // Increase attendance by one
                             xlworksheet.Cells[i, 4] = attend;                                     // Put value in spreadsheet
                             xlWorkBook.Save();                                              // Save value
+                            //Sign into meal
+                            sign_in_cadet(name);
                             //reset form
                             UPinText.Text = "";
                             UNameText.Text = "";
@@ -301,6 +311,8 @@ namespace CG_SK_Lab1
                                 attend = attend + 1;                                        // Increase attendance by one
                                 xlworksheet.Cells[i, 4] = attend;                                 // Put value in spreadsheet
                                 xlWorkBook.Save();                                          // Save value
+                                //Sign into meal
+                                sign_in_cadet(name);
                                 access.Text = "Overide Accepted";                           // Grant Access
                                 access.ForeColor = Color.Green;
                                 timer1.Start();                                             // Only show for 1.5 seconds
@@ -347,7 +359,7 @@ namespace CG_SK_Lab1
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
-            string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
             //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
@@ -439,5 +451,28 @@ namespace CG_SK_Lab1
         {
             check_database_np();
         }
+        private void sign_in_cadet(string name)
+        {
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Attendance";                                             // Set current sheet to be Cadet Users
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
+            
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range("E2", "E2");    // E2 holds the number of cadets signed in
+            double numsignedin = xlcell.Value;
+            double rownum = numsignedin+2;
+
+            xlworksheet.Cells[rownum, 1] = name;
+            xlworksheet.Cells[rownum, 2] = DateTime.Today;
+            xlworksheet.Cells[rownum, 3] = DateTime.Today;
+            xlworksheet.Cells[rownum, 3].NumberFormat = "General";
+            xlWorkBook.Save();
+
+        }
+
     }
 }
