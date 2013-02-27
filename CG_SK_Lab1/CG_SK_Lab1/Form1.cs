@@ -38,6 +38,7 @@ namespace CG_SK_Lab1
             APassText.Visible = true;
             ALogin.Visible = true;
             adminaccess.Visible = true;
+            test_function();
         }
 
         //When Log-in (for Admin credentials) is clicked
@@ -160,7 +161,26 @@ namespace CG_SK_Lab1
             change.ShowDialog();
         }
 
+        private void test_function()
+        {
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Attendance";                                                  // Set current sheet to be Cadet Users
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
 
+            string cellname = "F2";                                                         // First cell with scanned ID #
+            xlworksheet.Cells[6, 2].NumberFormat = "General";
+
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
+            xlWorkBook.Save();
+            xlWorkBook.Close();
+            string awesome;
+            
+        }
         // Check Database with Scanned ID
         private void check_database_code()
         {

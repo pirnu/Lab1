@@ -42,11 +42,11 @@ namespace CG_SK_Lab1
 
             //should be able to get this to change using radio buttons
             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select * from [Attendance$]", conn);
-            myDataAdapter.Fill(myExcelData);
+        //    myDataAdapter.Fill(myExcelData);
 
-            dataGridView1.DataSource = myExcelData.Tables[0];
+       //     dataGridView1.DataSource = myExcelData.Tables[0];
 
-            conn.Close();
+        //    conn.Close();
         }
 
         private void Reports_Load(object sender, EventArgs e)
