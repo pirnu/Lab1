@@ -250,8 +250,8 @@ namespace CG_SK_Lab1
                     if (sheet == "Attendance")      //Cadet Lookup
                         query = "Select Name, TimeStamp from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
                     else if (sheet == "Totals")     //Meal lookup
-                        query = "Select Meal, Date from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
-                    else if (sheet == "Excusals")   //Cadet Lookup on Excusal
+                        query = "Select Meal, Date, Attendance from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
+                    else if (sheet == "Excusals")   //Date Lookup on Excusal
                         query = "Select Name, Excusal, Day from  [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
                     else                            // Cadet Signed in Multiple Times
                         query = "Select Name, TimeStamp, SignIns from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
@@ -262,7 +262,7 @@ namespace CG_SK_Lab1
                     if (sheet == "Attendance")      //Cadet Lookup
                         query = "Select Name, Timestamp from [" + sheet + "$] Where excelform >= " + date1 + " And  excelform <= " + date2 + " And Name = '" + cadet + "'";
                     else if (sheet == "Totals")     //Meal lookup
-                        query = "Select Meal, Date from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Meal = '" + cadet + "'";
+                        query = "Select Meal, Date, Attendance from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Meal = '" + cadet + "'";
                     else if (sheet == "Excusals")   //Cadet Lookup on Excusal
                         query = "Select Name, Excusal, Day from  [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Name = '" + cadet + "'";
                     else                            // Cadet Signed in Multiple Times
