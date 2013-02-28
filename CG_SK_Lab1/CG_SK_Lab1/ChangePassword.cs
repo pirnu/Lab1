@@ -87,6 +87,8 @@ namespace CG_SK_Lab1
                 nstatus.Image = error;
                // this.ActiveControl = nameText;                                             // Put Cusor in admin username field
             }
+            xlWorkBook.Save();
+            xlWorkBook.Close();
         }
 
         private void verified_KeyDown(object sender, KeyEventArgs e)
@@ -160,6 +162,8 @@ namespace CG_SK_Lab1
                 nstatus.Visible = true;
                 nstatus.Image = error;
             }
+            xlWorkBook.Save();
+            xlWorkBook.Close();
         }
 
         private void verified_TextChanged(object sender, EventArgs e)

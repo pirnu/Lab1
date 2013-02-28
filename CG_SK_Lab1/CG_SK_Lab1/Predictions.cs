@@ -124,6 +124,8 @@ namespace CG_SK_Lab1
             dataGridView1.DataSource = myExcelData.Tables[0];
 
             conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
+            xlWorkBook.Save();
+            xlWorkBook.Close();
         }
 
         private void makeweek_prediction()

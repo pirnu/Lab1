@@ -132,6 +132,8 @@ namespace CG_SK_Lab1
                 bstatus.Image = checkmark;
                 newcode = true;
             }
+            xlWorkBook.Save();
+            xlWorkBook.Close();
         }
 
         private void pinText_KeyDown(object sender, KeyEventArgs e)
@@ -204,6 +206,8 @@ namespace CG_SK_Lab1
                 xlworksheet.Cells[i, 3] = bcText.Text;                                          // Enroll New Barcode
                 xlworksheet.Cells[i, 4] = "0";                                                  //initalize attendance
                 xlWorkBook.Save();                                                              // Save value
+                xlWorkBook.Close();
         }
+
     }
 }

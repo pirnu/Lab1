@@ -284,6 +284,9 @@ namespace CG_SK_Lab1
                 dataGridView1.DataSource = myExcelData.Tables[0];
 
                 conn.Close();
+
+                xlWorkBook.Save();
+                xlWorkBook.Close();
             }
         }
 
@@ -300,6 +303,9 @@ namespace CG_SK_Lab1
             Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range("E2", "E2");
             double cadetnumber = xlcell.Value;
             numcadets.Text = cadetnumber.ToString();
+
+            xlWorkBook.Save();
+            xlWorkBook.Close();
             
         }
     }

@@ -189,24 +189,36 @@ namespace CG_SK_Lab1
                     cellname = "D" + i.ToString();                                          // change cell to check attendance
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname); 
                     double attend = xlcell.Value;                                           // store in attend
+
+                    bool excused = on_excusal(cadetname);
                     if (attend == 0)                                                        // if student has not yet signed in...
                     {
-                        access.Text = "Granted";                                            // Grant Access
-                        access.ForeColor = Color.Green;
-                        timer1.Start();                                                     // Only show for 1.5 seconds
-                        match = true;                                                       // Match has been found
-                       
-                        //update database
-                        attend = attend+1;                                                  // increase attend by 1
-                        xlworksheet.Cells[i, 4] = attend;                                   // set value to new attend
-                        xlWorkBook.Save();                                                  // save the change
+                        if (!excused)
+                        {
+                            access.Text = "Granted";                                            // Grant Access
+                            access.ForeColor = Color.Green;
+                            timer1.Start();                                                     // Only show for 1.5 seconds
+                            match = true;                                                       // Match has been found
 
-                        //Sign into meal
-                        sign_in_cadet(cadetname);
-                        //reset form
-                        UPinText.Text = ""; 
-                        UNameText.Text = "";
-                        this.ActiveControl = UIDText;                                       // Reset cursor to scan input
+                            //update database
+                            attend = attend + 1;                                                  // increase attend by 1
+                            xlworksheet.Cells[i, 4] = attend;                                   // set value to new attend
+                            xlWorkBook.Save();                                                  // save the change
+
+                            //Sign into meal
+                            sign_in_cadet(cadetname);
+                            //reset form
+                            UPinText.Text = "";
+                            UNameText.Text = "";
+                            this.ActiveControl = UIDText;                                       // Reset cursor to scan input
+                        }
+                        else
+                        {
+                            access.Text = "ON EXCUSAL";                                            // Grant Access
+                            access.ForeColor = Color.Red;
+                            timer1.Start();                                                     // Only show for 1.5 seconds
+                            match = true;                                                       // Match has been found
+                        }
 
                     }
                     else // if they have already signed in.
@@ -219,7 +231,7 @@ namespace CG_SK_Lab1
                         if (asi.getstatus())                                                // If admin allowed override
                         {
                             attend = attend+1;                                              // Increase attendance by one
-                            xlworksheet.Cells[i, 4] = attend;                                     // Put value in spreadsheet
+                            xlworksheet.Cells[i, 4] = attend;                               // Put value in spreadsheet
                             xlWorkBook.Save();
                             //Sign into meal
                             sign_in_cadet(cadetname);// Save value
@@ -249,6 +261,8 @@ namespace CG_SK_Lab1
                 access.ForeColor = Color.Red;
                 timer1.Start();                                                             // Show for 1.5 seconds
             }
+            xlWorkBook.Save();
+            xlWorkBook.Close();
         }
 
         private void check_database_np() //check with name and pin
@@ -278,25 +292,35 @@ namespace CG_SK_Lab1
                     cellname = "D" + i.ToString();                                          // check attendance value
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
                     double attend = xlcell.Value;                                           // change cell to check attendance
-
+                    bool excused = on_excusal(name);
                     if (UPinText.Text == pin)                                               // If Pins Match
                     {
                         if (attend == 0)                                                    // If Not Signed In
                         {
-                            access.Text = "Granted";                                        // Grant Access
-                            access.ForeColor = Color.Green;
-                            timer1.Start();
-                            match = true;                                                   // Match has been Found
-                            //update database
-                            attend = attend + 1;                                            // Increase attendance by one
-                            xlworksheet.Cells[i, 4] = attend;                                     // Put value in spreadsheet
-                            xlWorkBook.Save();                                              // Save value
-                            //Sign into meal
-                            sign_in_cadet(name);
-                            //reset form
-                            UPinText.Text = "";
-                            UNameText.Text = "";
-                            this.ActiveControl = UIDText;                                   // Set cursor back to scan ID
+                            if (!excused)
+                            {
+                                access.Text = "Granted";                                        // Grant Access
+                                access.ForeColor = Color.Green;
+                                timer1.Start();
+                                match = true;                                                   // Match has been Found
+                                //update database
+                                attend = attend + 1;                                            // Increase attendance by one
+                                xlworksheet.Cells[i, 4] = attend;                                     // Put value in spreadsheet
+                                xlWorkBook.Save();                                              // Save value
+                                //Sign into meal
+                                sign_in_cadet(name);
+                                //reset form
+                                UPinText.Text = "";
+                                UNameText.Text = "";
+                                this.ActiveControl = UIDText;                                   // Set cursor back to scan ID
+                            }
+                            else
+                            {
+                                access.Text = "ON EXCUSAL";                                            // Grant Access
+                                access.ForeColor = Color.Red;
+                                timer1.Start();                                                     // Only show for 1.5 seconds
+                                match = true;                                                       // Match has been found
+                            }
                             
                         }
                         else // They already signed in
@@ -354,6 +378,8 @@ namespace CG_SK_Lab1
                 UPinText.Text = "";
                 this.ActiveControl = UNameText;                                             // Set up for re-entering name
             }
+            xlWorkBook.Save();
+            xlWorkBook.Close();
         }
         private void check_database_admin() //check with name and pin
         {
@@ -417,6 +443,8 @@ namespace CG_SK_Lab1
                 APassText.Text = "";
                 this.ActiveControl = ANameText;                                             // Put Cusor in admin username field
             }
+            xlWorkBook.Save();
+            xlWorkBook.Close();
         }
 
         private void logout_Click(object sender, EventArgs e)
@@ -472,7 +500,48 @@ namespace CG_SK_Lab1
             xlworksheet.Cells[rownum, 3].NumberFormat = "General";
             xlWorkBook.Save();
 
-        }
+            xlWorkBook.Save();
+            xlWorkBook.Close();
 
+        }
+        private bool on_excusal(string name)
+        {
+            //Initializes Database
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Excusals";                                                  // Set current sheet to be Cadet Users
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet
+
+            int i = 2;
+            string cellname = "A" + i.ToString();
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
+            string xlname = name;
+            bool match = false;
+            if (xlcell.Value != null)
+            {
+                xlname = xlcell.Value.ToString();    // store value in xlcell as a string
+            }
+
+            while (xlcell.Value != null && !match)
+            {
+                if (xlname == name)
+                    match = true;
+                else
+                {
+                    i++;                                                                    // Move down a row
+                    cellname = "A" + i.ToString();                                          // Set next cell
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);        // Get code
+                }
+                if (xlcell.Value != null)                                               // if its not empty
+                    xlname = xlcell.Value.ToString();                                     // set as a string
+            } 
+            xlWorkBook.Save();
+            xlWorkBook.Close();
+            return match;
+        }
     }
 }

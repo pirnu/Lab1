@@ -153,6 +153,8 @@ namespace CG_SK_Lab1
                 APassText.Text = "";
                 this.ActiveControl = ANameText;                                              //Put Cursor in the username field
             }
+            xlWorkBook.Save();
+            xlWorkBook.Close();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
