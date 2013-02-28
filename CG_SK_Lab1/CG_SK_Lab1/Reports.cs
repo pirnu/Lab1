@@ -124,7 +124,7 @@ namespace CG_SK_Lab1
         {
             nameLabel.Visible = true;
             mealLabel.Visible = false;
-            query = "Select * from [Excusals$]";
+            query = "Select Name, Excusal, Day from  [Excusals$]";
             sheet = "Excusals";
             ID = "Name";
             
@@ -150,7 +150,7 @@ namespace CG_SK_Lab1
         {
             nameLabel.Visible = true;
             mealLabel.Visible = false;
-            query = "Select * from [Multiples$]";
+            query = "Select Name, TimeStamp, SignIns from [Multiples$]";
             sheet = "Multiples";
             ID = "Name";
 
@@ -221,7 +221,7 @@ namespace CG_SK_Lab1
             //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
-            string currentSheet = "Attendance";                                                  // Set current sheet to be Cadet Users
+            string currentSheet = sheet;                                                  // Set current sheet to be Cadet Users
             Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
 
             //input dates
@@ -247,11 +247,26 @@ namespace CG_SK_Lab1
                 blank.Visible = false;
                 if (nameText.Text == "")
                 {
-                    query = "Select Name, TimeStamp from [" + sheet + "$] Where excelform >= " + date1 + " And  excelform <= " + date2;
+                    if (sheet == "Attendance")      //Cadet Lookup
+                        query = "Select Name, TimeStamp from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
+                    else if (sheet == "Totals")     //Meal lookup
+                        query = "Select Meal, Date from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
+                    else if (sheet == "Excusals")   //Cadet Lookup on Excusal
+                        query = "Select Name, Excusal, Day from  [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
+                    else                            // Cadet Signed in Multiple Times
+                        query = "Select Name, TimeStamp, SignIns from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
                 }
+                  
                 else
                 {
-                    query = "Select Name, Timestamp from [" + sheet + "$] Where excelform >= " + date1 + " And  excelform <= " + date2 + " And Name = '" + cadet + "'";
+                    if (sheet == "Attendance")      //Cadet Lookup
+                        query = "Select Name, Timestamp from [" + sheet + "$] Where excelform >= " + date1 + " And  excelform <= " + date2 + " And Name = '" + cadet + "'";
+                    else if (sheet == "Totals")     //Meal lookup
+                        query = "Select Meal, Date from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Meal = '" + cadet + "'";
+                    else if (sheet == "Excusals")   //Cadet Lookup on Excusal
+                        query = "Select Name, Excusal, Day from  [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Name = '" + cadet + "'";
+                    else                            // Cadet Signed in Multiple Times
+                        query = "Select Name, TimeStamp, SignIns from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Name = '" + cadet + "'";
                 }
                 // filename for database - must be in bin/debug folder
                 string file = "testdb.xlsx";

@@ -27,6 +27,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace CG_SK_Lab1
 {
@@ -39,44 +40,43 @@ namespace CG_SK_Lab1
 
         private void Predictions_Load(object sender, EventArgs e)
         {
-            make_prediction();
+            makeday_prediction();
         }
 
         private void day_CheckedChanged(object sender, EventArgs e)
         {
-            label1.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            label4.Visible = true;
-            label1.Text = "Breakfast";
-            label2.Text = "Lunch";
-            label3.Text = "Dinner";
-            label4.Text = "Total";
+            makeday_prediction();
         }
 
         private void week_CheckedChanged(object sender, EventArgs e)
         {
-            label1.Visible = true;
-            label2.Visible = true;
-            label3.Visible = true;
-            label4.Visible = true;
-            label5.Visible = true;
-            label6.Visible = true;
-            label7.Visible = true;
-            label8.Visible = true;
-
-            label1.Text = "Sunday";
-            label2.Text = "Monday";
-            label3.Text = "Tuesday";
-            label4.Text = "Wednesday";
-            label1.Text = "Breakfast";
-            label2.Text = "Lunch";
-            label3.Text = "Dinner";
-            label4.Text = "Total";
+            makeweek_prediction();
         }
 
-        private void make_prediction()
+        private void makeday_prediction()
         {
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Totals";                                                  // Set current sheet to be Cadet Users
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
+            Excel.Range meal = (Excel.Range)xlworksheet.get_Range("A97", "A97");
+            string mealname = meal.Value;
+            string Day = System.DateTime.Now.DayOfWeek.ToString();
+
+            Excel.Range meal2 = (Excel.Range)xlworksheet.get_Range("A95", "A95");
+            string mealname2 = meal2.Value;
+            string Day2 = System.DateTime.Now.DayOfWeek.ToString();
+
+            Excel.Range meal3 = (Excel.Range)xlworksheet.get_Range("A96", "A96");
+            string mealname3 = meal3.Value;
+            string Day3 = System.DateTime.Now.DayOfWeek.ToString();
+
+
+
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
             // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
@@ -85,7 +85,7 @@ namespace CG_SK_Lab1
             DataSet myExcelData = new DataSet();
 
             string query;
-            query = "SELECT AVG(Attendance where Day = 'Sunday' AND Meal = 'breakfast') AS Breakfast FROM [Totals$]";
+            query = "SELECT AVG(Attendance) AS " + mealname + " FROM [Totals$] where Day = '" + Day + "' AND Meal = '"+ mealname + "'";
 
 
             conn.Open();
@@ -97,13 +97,158 @@ namespace CG_SK_Lab1
             dataGridView1.DataSource = myExcelData.Tables[0];
 
             conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
+            // query 2
+            query = "SELECT AVG(Attendance) AS " + mealname2 + " FROM [Totals$] where Day = '" + Day2 + "' AND Meal = '" + mealname2 + "'";
+
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
+
+            //query 3
+            query = "SELECT AVG(Attendance) AS " + mealname3 + " FROM [Totals$] where Day = '" + Day3 + "' AND Meal = '" + mealname3 + "'";
+
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void makeweek_prediction()
         {
-            make_prediction();
+            string query;
+            // filename for database - must be in bin/debug folder
+            string file = "testdb.xlsx";
+
+            //Sunday
+            query = "SELECT AVG(Attendance)*3 AS Sunday FROM [Totals$] where Day = 'Sunday'";
+            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
+            // received lots of help from this link
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
+            DataSet myExcelData = new DataSet();
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
+            //Monday
+            query = "SELECT AVG(Attendance)*3 AS Monday FROM [Totals$] where Day = 'Monday'";
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
+            //Tuesday
+            query = "SELECT AVG(Attendance)*3 AS Tuesday FROM [Totals$] where Day = 'Tuesday'";
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
+            //Wednesday
+            query = "SELECT AVG(Attendance)*3 AS Wednseday FROM [Totals$] where Day = 'Wednesday'";
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
+            //Thursday
+            query = "SELECT AVG(Attendance)*3 AS Thursday FROM [Totals$] where Day = 'Thursday'";
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
+            //Friday
+            query = "SELECT AVG(Attendance)*3 AS Friday FROM [Totals$] where Day = 'Friday'";
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
+            //Saturday
+            query = "SELECT AVG(Attendance)*3 AS Saturday FROM [Totals$] where Day = 'Saturday'";
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
         }
 
+        private void makemonth_prediction()
+        {
+            string query;
+            // filename for database - must be in bin/debug folder
+            string file = "testdb.xlsx";
 
+            //Month
+            query = "SELECT AVG(Attendance)*31 AS NextMonth FROM [Totals$]";
+            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
+            // received lots of help from this link
+            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
+            DataSet myExcelData = new DataSet();
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView1.DataSource = myExcelData.Tables[0];
+
+            conn.Close();
+        }
+
+        private void month_CheckedChanged(object sender, EventArgs e)
+        {
+            makemonth_prediction();
+        }
     }
 }
