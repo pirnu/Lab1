@@ -11,11 +11,11 @@ using Excel = Microsoft.Office.Interop.Excel;
 namespace CG_SK_Lab1
 {
     public partial class Already_Signed_In : Form
-    {      
+    {
+
         public Already_Signed_In()
         {
             InitializeComponent();
-            
             //Hide Admin Priviledges
             aname.Visible = false;
             apass.Visible = false;
@@ -35,7 +35,21 @@ namespace CG_SK_Lab1
 
         private void Already_Signed_In_Load(object sender, EventArgs e)
         {
-            // Show Admin Priviledges
+            string reason = UEnter.denied;
+            if (reason == "excusal")
+            {
+                Title.Text = "Whoops it Appears you are on Excusal!";
+                Note.Text = "If this is not the case, please find an Administator to assist you";
+                Already_Signed_In.ActiveForm.Text = "On Excusal";
+            }
+            else
+            {
+                Title.Text = "Whoops it Appears you are already signed in!";
+                Note.Text = "If this is was not you, please find an Administator to assist you";
+                Already_Signed_In.ActiveForm.Text = "On Excusal";
+            }
+
+            // Hide Admin Priviledges
             aname.Visible = false;
             apass.Visible = false;
             ANameText.Visible = false;
@@ -78,7 +92,7 @@ namespace CG_SK_Lab1
         // Admin Clicks Override
         private void enter_Click(object sender, EventArgs e)
         {
-                check_database_admin(); //checks database with typed input
+            check_database_admin(); //checks database with typed input
         }
 
         private void check_database_admin() //check with name and pin
@@ -123,7 +137,7 @@ namespace CG_SK_Lab1
                     }
                     else // Wrong Password
                     {
-                        
+
                         status.Text = "Incorrect Password";                                 // Show Error
                         status.Visible = true;
                         status.ForeColor = Color.Red;
@@ -144,7 +158,7 @@ namespace CG_SK_Lab1
             }
             if (!match) // If name is never found
             {
-                
+
                 status.Text = "Admin Does Not Exist";                                        // Show Error
                 status.Visible = true;
                 status.ForeColor = Color.Red;
@@ -163,7 +177,7 @@ namespace CG_SK_Lab1
             status.Visible = false;
             timer1.Stop();
         }
-    
+
     }
 
 }

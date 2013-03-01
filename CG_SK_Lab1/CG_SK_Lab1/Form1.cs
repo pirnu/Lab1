@@ -20,6 +20,7 @@ namespace CG_SK_Lab1
         public EnrollCadet enroll = new EnrollCadet();
         public Already_Signed_In asi = new Already_Signed_In();
         public bool AdminActive = false;
+        public static string denied; // reason for denial to sign in
         System.Drawing.Image checkmark = CG_SK_Lab1.Properties.Resources.checkmark;
         System.Drawing.Image error = CG_SK_Lab1.Properties.Resources.error;
         //Initial-Conditions
@@ -190,7 +191,7 @@ namespace CG_SK_Lab1
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
                     string cadetname = xlcell.Value();
                     cellname = "D" + i.ToString();                                          // change cell to check attendance
-                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname); 
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
                     double attend = xlcell.Value;                                           // store in attend
 
                     bool excused = on_excusal(cadetname);
@@ -221,6 +222,20 @@ namespace CG_SK_Lab1
                             access.ForeColor = Color.Red;
                             timer1.Start();                                                     // Only show for 1.5 seconds
                             match = true;                                                       // Match has been found
+                            denied = "excusal";
+                            asi.ShowDialog();
+                            if (asi.getstatus())                                                // If admin allowed override
+                            {
+                                attend = attend + 1;                                              // Increase attendance by one
+                                xlworksheet.Cells[i, 4] = attend;                               // Put value in spreadsheet
+                                xlWorkBook.Save();// Save value
+                                //Sign into meal
+                                sign_in_cadet(cadetname);
+                                update_multiples(cadetname);
+                                access.Text = "Overide Accepted";                               // Grant Access
+                                access.ForeColor = Color.Green;
+                                timer1.Start();                                                 // Only show for 1.5 seconds
+                            }
                         }
 
                     }
@@ -230,14 +245,16 @@ namespace CG_SK_Lab1
                         access.ForeColor = Color.Red;
                         timer1.Start();
                         match = true;                                                       // Cadet is in database
+                        denied = "signedin";
                         asi.ShowDialog();                                                   // Show form that student has already signed in
                         if (asi.getstatus())                                                // If admin allowed override
                         {
-                            attend = attend+1;                                              // Increase attendance by one
+                            attend = attend + 1;                                              // Increase attendance by one
                             xlworksheet.Cells[i, 4] = attend;                               // Put value in spreadsheet
                             xlWorkBook.Save();
                             //Sign into meal
                             sign_in_cadet(cadetname);// Save value
+                            update_multiples(cadetname);
                             access.Text = "Overide Accepted";                               // Grant Access
                             access.ForeColor = Color.Green;
                             timer1.Start();                                                 // Only show for 1.5 seconds
@@ -290,7 +307,7 @@ namespace CG_SK_Lab1
                 if (UNameText.Text == name)                                                 // check if name matches Value
                 {
                     cellname = "B" + i.ToString();                                          // change cell to check Pin
-                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);        
+                    xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
                     string pin = xlcell.Value.ToString();                                   // store in pin
                     cellname = "D" + i.ToString();                                          // check attendance value
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
@@ -323,8 +340,22 @@ namespace CG_SK_Lab1
                                 access.ForeColor = Color.Red;
                                 timer1.Start();                                                     // Only show for 1.5 seconds
                                 match = true;                                                       // Match has been found
+                                denied = "excusal";
+                                asi.ShowDialog();
+                                if (asi.getstatus())                                                // If admin allowed override
+                                {
+                                    attend = attend + 1;                                              // Increase attendance by one
+                                    xlworksheet.Cells[i, 4] = attend;                               // Put value in spreadsheet
+                                    xlWorkBook.Save();
+                                    //Sign into meal
+                                    sign_in_cadet(name);// Save value
+                                    update_multiples(name);
+                                    access.Text = "Overide Accepted";                               // Grant Access
+                                    access.ForeColor = Color.Green;
+                                    timer1.Start();                                                 // Only show for 1.5 seconds
+                                }
                             }
-                            
+
                         }
                         else // They already signed in
                         {
@@ -332,6 +363,7 @@ namespace CG_SK_Lab1
                             access.ForeColor = Color.Red;
                             timer1.Start();
                             match = true;                                                   // They were found
+                            denied = "signedin";
                             asi.ShowDialog();                                               // Prompt for admin override
                             if (asi.getstatus())                                            // If admin overrides
                             {
@@ -340,6 +372,7 @@ namespace CG_SK_Lab1
                                 xlWorkBook.Save();                                          // Save value
                                 //Sign into meal
                                 sign_in_cadet(name);
+                                update_multiples(name);
                                 access.Text = "Overide Accepted";                           // Grant Access
                                 access.ForeColor = Color.Green;
                                 timer1.Start();                                             // Only show for 1.5 seconds
@@ -551,6 +584,32 @@ namespace CG_SK_Lab1
         private void newMeal_Click(object sender, EventArgs e)
         {
             nm.ShowDialog();
+        }
+        private void update_multiples(string name)
+        {
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "Multiples";                                                  // Set current sheet to be Cadet Users
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
+
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range("E2", "E2");    // E2 holds the number of cadets signed in
+            double numofmultiples = xlcell.Value;
+            double rownum = numofmultiples + 2;
+
+            xlworksheet.Cells[rownum, 1] = name;
+            xlworksheet.Cells[rownum, 2] = DateTime.Today;
+            xlworksheet.Cells[rownum, 3] = denied;
+            xlworksheet.Cells[rownum, 4] = DateTime.Today;
+            xlworksheet.Cells[rownum, 4].NumberFormat = "General";
+            xlWorkBook.Save();
+
+            xlWorkBook.Save();
+            xlWorkBook.Close();
+
         }
     }
 }

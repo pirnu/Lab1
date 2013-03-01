@@ -150,7 +150,7 @@ namespace CG_SK_Lab1
         {
             nameLabel.Visible = true;
             mealLabel.Visible = false;
-            query = "Select Name, TimeStamp, SignIns from [Multiples$]";
+            query = "Select Name, TimeStamp, Reason from [Multiples$]";
             sheet = "Multiples";
             ID = "Name";
 
@@ -254,7 +254,7 @@ namespace CG_SK_Lab1
                     else if (sheet == "Excusals")   //Date Lookup on Excusal
                         query = "Select Name, Excusal, Day from  [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
                     else                            // Cadet Signed in Multiple Times
-                        query = "Select Name, TimeStamp, SignIns from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
+                        query = "Select Name, TimeStamp, Reason from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2;
                 }
                   
                 else
@@ -266,7 +266,7 @@ namespace CG_SK_Lab1
                     else if (sheet == "Excusals")   //Cadet Lookup on Excusal
                         query = "Select Name, Excusal, Day from  [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Name = '" + cadet + "'";
                     else                            // Cadet Signed in Multiple Times
-                        query = "Select Name, TimeStamp, SignIns from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Name = '" + cadet + "'";
+                        query = "Select Name, TimeStamp, Reason from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Name = '" + cadet + "'";
                 }
                 // filename for database - must be in bin/debug folder
                 string file = "testdb.xlsx";
