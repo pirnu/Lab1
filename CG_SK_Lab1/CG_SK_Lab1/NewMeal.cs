@@ -49,11 +49,47 @@ namespace CG_SK_Lab1
             currentSheet = "Totals";
             xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet); 
             //http://social.msdn.microsoft.com/Forums/en-US/csharpgeneral/thread/920180bf-1c84-40f7-b547-ba9532e309cd
-            Excel.Range range = xlworksheet.get_Range("A2:E2", Type.Missing);
-            range.Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
+            Excel.Range range1;
+            Excel.Range range2;
+            Excel.Range range3;
+            Excel.Range range4;
+            Excel.Range range5;
+
+            string block1;
+            string block2;
+            string block3;
+            string block4;
+            string block5;
+            int k;
+
+            
+            //range.Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
+            for (int i = 2; i <= 96; i++)
+            {
+                k = i + 1;
+                block1 = "A"+k.ToString();
+                block2 = "B"+k.ToString();
+                block3 = "C"+k.ToString();
+                block4 = "D"+k.ToString();
+                block5 = "E"+k.ToString();
+
+                range1 = xlworksheet.get_Range(block1, block1);
+                range2 = xlworksheet.get_Range(block2, block2);
+                range3 = xlworksheet.get_Range(block3, block3);
+                range4 = xlworksheet.get_Range(block4, block4);
+                range5 = xlworksheet.get_Range(block5, block5);
+
+                xlworksheet.Cells[i, 1] = range1.Value.ToString();
+                xlworksheet.Cells[i, 2] = range2.Value.ToString();
+                xlworksheet.Cells[i, 3] = range3.Value.ToString();
+                xlworksheet.Cells[i, 4] = range4.Value.ToString();
+                xlworksheet.Cells[i, 5] = range5.Value.ToString();
+                
+            }
 
             xlworksheet.Cells[97, 1] = meal;
             xlworksheet.Cells[97, 2] = DateTime.Today;
+            xlworksheet.Cells[97, 3] = "To be determined";
             xlworksheet.Cells[97, 4] = DateTime.Today;
             xlworksheet.Cells[97, 4].NumberFormat = "General";
             xlworksheet.Cells[97, 5] = DateTime.Now.DayOfWeek.ToString();
@@ -61,6 +97,11 @@ namespace CG_SK_Lab1
 
             xlWorkBook.Save();
             xlWorkBook.Close();
+        }
+
+        private void NewMeal_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -181,7 +181,8 @@ namespace CG_SK_Lab1
             Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);    // store in xlcell
             string code = xlcell.Value.ToString();                                          // store value in xlcell as a string
             bool match = false;                                                             // initialize match as not found
-            int i = 2;                                                                      // current row is two
+            int i = 2;      // current row is two
+            string cadetname;
             while (xlcell.Value != null && !match)                                          // while its not the bottom of the db and a match has not been found
             {
 
@@ -189,7 +190,7 @@ namespace CG_SK_Lab1
                 {
                     cellname = "A" + i.ToString();
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
-                    string cadetname = xlcell.Value();
+                    cadetname = xlcell.Value;
                     cellname = "D" + i.ToString();                                          // change cell to check attendance
                     xlcell = (Excel.Range)xlworksheet.get_Range(cellname, cellname);
                     double attend = xlcell.Value;                                           // store in attend
@@ -352,6 +353,9 @@ namespace CG_SK_Lab1
                                     update_multiples(name);
                                     access.Text = "Overide Accepted";                               // Grant Access
                                     access.ForeColor = Color.Green;
+                                    UPinText.Text = "";
+                                    UNameText.Text = "";
+                                    this.ActiveControl = UIDText;  
                                     timer1.Start();                                                 // Only show for 1.5 seconds
                                 }
                             }
