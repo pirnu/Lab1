@@ -13,6 +13,7 @@ namespace CG_SK_Lab1
     public partial class UEnter : Form
     {
         //Link all other forms
+        public NewMeal nm = new NewMeal();
         public ChangePassword change = new ChangePassword();
         public Reports reports = new Reports();
         public Predictions predict = new Predictions();
@@ -60,6 +61,7 @@ namespace CG_SK_Lab1
                 ADispPred.Visible = true;
                 AEnroll.Visible = true;
                 AChangePass.Visible = true;
+                newMeal.Visible = true;
             }
 
         }
@@ -117,6 +119,7 @@ namespace CG_SK_Lab1
                     ADispPred.Visible = true;
                     AEnroll.Visible = true;
                     AChangePass.Visible = true;
+                    newMeal.Visible = true;
                 }
             }
         }
@@ -469,6 +472,7 @@ namespace CG_SK_Lab1
             APassText.Visible = false;
             ALogin.Visible = false;
             adminaccess.Visible = false;
+            newMeal.Visible = false;
 
             // Set Cursor back into the Scan Bar
             this.ActiveControl = UIDText;
@@ -542,6 +546,11 @@ namespace CG_SK_Lab1
             xlWorkBook.Save();
             xlWorkBook.Close();
             return match;
+        }
+
+        private void newMeal_Click(object sender, EventArgs e)
+        {
+            nm.ShowDialog();
         }
     }
 }

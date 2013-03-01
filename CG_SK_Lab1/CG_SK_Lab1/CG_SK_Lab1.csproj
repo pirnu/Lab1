@@ -70,6 +70,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewMeal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewMeal.Designer.cs">
+      <DependentUpon>NewMeal.cs</DependentUpon>
+    </Compile>
     <Compile Include="Predictions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewMeal.resx">
+      <DependentUpon>NewMeal.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Predictions.resx">
       <DependentUpon>Predictions.cs</DependentUpon>

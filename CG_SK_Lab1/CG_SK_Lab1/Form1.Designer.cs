@@ -51,6 +51,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.adminaccess = new System.Windows.Forms.Label();
             this.logout = new System.Windows.Forms.Button();
+            this.newMeal = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AButton
@@ -271,11 +272,23 @@
             this.logout.Visible = false;
             this.logout.Click += new System.EventHandler(this.logout_Click);
             // 
+            // newMeal
+            // 
+            this.newMeal.Location = new System.Drawing.Point(165, 228);
+            this.newMeal.Name = "newMeal";
+            this.newMeal.Size = new System.Drawing.Size(75, 23);
+            this.newMeal.TabIndex = 22;
+            this.newMeal.Text = "New Meal";
+            this.newMeal.UseVisualStyleBackColor = true;
+            this.newMeal.Visible = false;
+            this.newMeal.Click += new System.EventHandler(this.newMeal_Click);
+            // 
             // UEnter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 426);
+            this.Controls.Add(this.newMeal);
             this.Controls.Add(this.logout);
             this.Controls.Add(this.adminaccess);
             this.Controls.Add(this.access);
@@ -329,6 +342,7 @@
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label adminaccess;
         private System.Windows.Forms.Button logout;
+        private System.Windows.Forms.Button newMeal;
     }
 }
 
