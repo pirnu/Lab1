@@ -35,6 +35,18 @@ namespace CG_SK_Lab1
 
         private void start_Click(object sender, EventArgs e)
         {
+            update_meal_log();
+            update_long_term();
+            this.Close();
+        }
+
+        private void NewMeal_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void update_meal_log()
+        {
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
             // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
@@ -42,12 +54,12 @@ namespace CG_SK_Lab1
             //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
-            string currentSheet = "Attendance";                                             // Set current sheet to be Attendance
+            string currentSheet = "CurrentMeal";                                             // Set current sheet to be Attendance
             Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
             Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range("E2", "E2");            // store in xlcell
             string attendance = xlcell.Value.ToString();                                    // store value in xlcell as a string
             currentSheet = "Totals";
-            xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet); 
+            xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
             //http://social.msdn.microsoft.com/Forums/en-US/csharpgeneral/thread/920180bf-1c84-40f7-b547-ba9532e309cd
             Excel.Range range1;
             Excel.Range range2;
@@ -62,16 +74,16 @@ namespace CG_SK_Lab1
             string block5;
             int k;
 
-            
+            xlworksheet.Cells[97, 3] = attendance;
             //range.Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
             for (int i = 2; i <= 96; i++)
             {
                 k = i + 1;
-                block1 = "A"+k.ToString();
-                block2 = "B"+k.ToString();
-                block3 = "C"+k.ToString();
-                block4 = "D"+k.ToString();
-                block5 = "E"+k.ToString();
+                block1 = "A" + k.ToString();
+                block2 = "B" + k.ToString();
+                block3 = "C" + k.ToString();
+                block4 = "D" + k.ToString();
+                block5 = "E" + k.ToString();
 
                 range1 = xlworksheet.get_Range(block1, block1);
                 range2 = xlworksheet.get_Range(block2, block2);
@@ -84,7 +96,7 @@ namespace CG_SK_Lab1
                 xlworksheet.Cells[i, 3] = range3.Value.ToString();
                 xlworksheet.Cells[i, 4] = range4.Value.ToString();
                 xlworksheet.Cells[i, 5] = range5.Value.ToString();
-                
+
             }
 
             xlworksheet.Cells[97, 1] = meal;
@@ -93,15 +105,53 @@ namespace CG_SK_Lab1
             xlworksheet.Cells[97, 4] = DateTime.Today;
             xlworksheet.Cells[97, 4].NumberFormat = "General";
             xlworksheet.Cells[97, 5] = DateTime.Now.DayOfWeek.ToString();
-            xlworksheet.Cells[96, 3] = attendance;
+
+
+            xlWorkBook.Save();
+            xlWorkBook.Close();
+        }
+        public void update_long_term()
+        {
+            //Initializes Database
+            Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
+            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
+            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
+            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
+            Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
+            Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
+            string currentSheet = "CurrentMeal";                                             // Set current sheet to be Attendance
+            Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
+            Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range("E2", "E2");            // store in xlcell
+            string attend = xlcell.Value.ToString();                                    // store value in xlcell as a string
+
+            currentSheet = "Attendance";
+            Excel.Worksheet xlworksheet2 = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
+            Excel.Range xlcell2 = (Excel.Range)xlworksheet2.get_Range("E2", "E2");            // store in xlcell
+
+            int attendance = Convert.ToInt16(attend);
+
+
+            string block1;
+            string block2;
+            string paste1;
+            string paste2;
+                
+            block1 = "A" + 2.ToString();
+            block2 = "D" + (attendance+1).ToString();
+
+            string allp = xlcell2.Value.ToString();
+            int allpeople = Convert.ToInt16(allp) + 2;
+
+            paste1 = "A" + allpeople.ToString();
+            paste2 = "D" + (allpeople + attendance).ToString();
+
+            Excel.Range selCell1 = (Excel.Range)xlworksheet.get_Range(block1, block2);
+            Excel.Range selCell2 = (Excel.Range)xlworksheet2.get_Range(paste1, paste2);
+            selCell1.Cut(selCell2);
 
             xlWorkBook.Save();
             xlWorkBook.Close();
         }
 
-        private void NewMeal_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -53,6 +53,11 @@ namespace CG_SK_Lab1
             makeweek_prediction();
         }
 
+        private void month_CheckedChanged(object sender, EventArgs e)
+        {
+            makemonth_prediction();
+        }
+
         private void makeday_prediction()
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
@@ -67,13 +72,32 @@ namespace CG_SK_Lab1
             string mealname = meal.Value;
             string Day = System.DateTime.Now.DayOfWeek.ToString();
 
-            Excel.Range meal2 = (Excel.Range)xlworksheet.get_Range("A95", "A95");
-            string mealname2 = meal2.Value;
-            string Day2 = System.DateTime.Now.DayOfWeek.ToString();
+            string mealname2;
+            string mealname3;
+            string Day2;
+            string Day3;
+            if (mealname == "breakfast")
+            {
+                mealname2 = "lunch";
+                mealname3 = "dinner";
+                Day2 = System.DateTime.Now.DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.DayOfWeek.ToString();
+            }
+            else if (mealname == "lunch")
+            {
+                mealname2 = "dinner";
+                mealname3 = "breakfast";
+                Day2 = System.DateTime.Now.DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(1).DayOfWeek.ToString();
+            }
+            else // (mealname == "dinner")
+            {
+                mealname2 = "breakfast";
+                mealname3 = "lunch";
+                Day2 = System.DateTime.Now.AddDays(1).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(1).DayOfWeek.ToString();
+            }
 
-            Excel.Range meal3 = (Excel.Range)xlworksheet.get_Range("A96", "A96");
-            string mealname3 = meal3.Value;
-            string Day3 = System.DateTime.Now.DayOfWeek.ToString();
 
 
 
@@ -248,9 +272,6 @@ namespace CG_SK_Lab1
             conn.Close();
         }
 
-        private void month_CheckedChanged(object sender, EventArgs e)
-        {
-            makemonth_prediction();
-        }
+
     }
 }

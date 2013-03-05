@@ -40,6 +40,7 @@ namespace CG_SK_Lab1
             APassText.Visible = true;
             ALogin.Visible = true;
             adminaccess.Visible = true;
+            this.ActiveControl = ANameText;
         }
 
         //When Log-in (for Admin credentials) is clicked
@@ -528,18 +529,23 @@ namespace CG_SK_Lab1
             //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
-            string currentSheet = "Attendance";                                             // Set current sheet to be Cadet Users
+            string currentSheet = "CurrentMeal";                                             // Set current sheet to be Cadet Users
             Excel.Worksheet xlworksheet = (Excel.Worksheet)xlsheet.get_Item(currentSheet);  // Store users into xlworksheet 
-            
+           
             Excel.Range xlcell = (Excel.Range)xlworksheet.get_Range("E2", "E2");    // E2 holds the number of cadets signed in
+
             double numsignedin = xlcell.Value;
             double rownum = numsignedin+2;
+
+            Excel.Worksheet xlworksheet2 = (Excel.Worksheet)xlsheet.get_Item("Totals");
+            Excel.Range xlcell2 = (Excel.Range)xlworksheet2.get_Range("A97", "A97");
+            string currentmeal = xlcell2.Value.ToString();
 
             xlworksheet.Cells[rownum, 1] = name;
             xlworksheet.Cells[rownum, 2] = DateTime.Today;
             xlworksheet.Cells[rownum, 3] = DateTime.Today;
             xlworksheet.Cells[rownum, 3].NumberFormat = "General";
-            xlWorkBook.Save();
+            xlworksheet.Cells[rownum, 4] = currentmeal;
 
             xlWorkBook.Save();
             xlWorkBook.Close();
