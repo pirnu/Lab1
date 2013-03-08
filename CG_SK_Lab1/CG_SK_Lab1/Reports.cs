@@ -24,6 +24,7 @@ namespace CG_SK_Lab1
         public string query;    // string to query SQL
         public string sheet;    // current sheet being used
         public string ID;       // cadet or meal name
+        public string workbookpath = UEnter.workbookpath;
 
         public Reports()
         {
@@ -191,7 +192,6 @@ namespace CG_SK_Lab1
 
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = sheet;                                                  // Set current sheet to be Cadet Users
@@ -263,7 +263,6 @@ namespace CG_SK_Lab1
         private void disp_num_cadets()
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "CurrentMeal";                                                  // Set current sheet to be Cadet Users
