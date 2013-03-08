@@ -41,20 +41,6 @@ namespace CG_SK_Lab1
         private void Predictions_Load(object sender, EventArgs e)
         {
             makeday_prediction();
-        }
-
-        private void day_CheckedChanged(object sender, EventArgs e)
-        {
-            makeday_prediction();
-        }
-
-        private void week_CheckedChanged(object sender, EventArgs e)
-        {
-            makeweek_prediction();
-        }
-
-        private void month_CheckedChanged(object sender, EventArgs e)
-        {
             makemonth_prediction();
         }
 
@@ -98,8 +84,9 @@ namespace CG_SK_Lab1
                 Day3 = System.DateTime.Now.AddDays(1).DayOfWeek.ToString();
             }
 
-
-
+            meal1.Text = mealname;
+            meal2.Text = mealname2;
+            meal3.Text = mealname3;
 
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
@@ -109,7 +96,9 @@ namespace CG_SK_Lab1
             DataSet myExcelData = new DataSet();
 
             string query;
-            query = "SELECT AVG(Attendance) AS " + mealname + " FROM [Totals$] where Day = '" + Day + "' AND Meal = '"+ mealname + "'";
+            query = "SELECT ROUND(AVG(Attendance)) AS " + Day + " FROM [Totals$] where Day = '" + Day + "' AND Meal = '"+ mealname + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname2 + " FROM [Totals$] where Day = '" + Day2 + "' AND Meal = '" + mealname2 + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname3 + " FROM [Totals$] where Day = '" + Day3 + "' AND Meal = '" + mealname3 + "'";
 
 
             conn.Open();
@@ -119,10 +108,28 @@ namespace CG_SK_Lab1
             myDataAdapter.Fill(myExcelData);
 
             dataGridView1.DataSource = myExcelData.Tables[0];
-
             conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
-            // query 2
-            query = "SELECT AVG(Attendance) AS " + mealname2 + " FROM [Totals$] where Day = '" + Day2 + "' AND Meal = '" + mealname2 + "'";
+
+            Day = System.DateTime.Now.AddDays(1).DayOfWeek.ToString();
+            if (mealname == "breakfast")
+            {
+                Day2 = System.DateTime.Now.AddDays(1).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(1).DayOfWeek.ToString();
+            }
+            else if (mealname == "lunch")
+            {
+                Day2 = System.DateTime.Now.AddDays(1).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(2).DayOfWeek.ToString();
+            }
+            else // (mealname == "dinner")
+            {
+                Day2 = System.DateTime.Now.AddDays(2).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(2).DayOfWeek.ToString();
+            }
+            myExcelData = new DataSet();
+            query = "SELECT ROUND(AVG(Attendance)) AS " + Day + " FROM [Totals$] where Day = '" + Day + "' AND Meal = '" + mealname + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance))  FROM [Totals$] where Day = '" + Day2 + "' AND Meal = '" + mealname2 + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance))  FROM [Totals$] where Day = '" + Day3 + "' AND Meal = '" + mealname3 + "'";
 
 
             conn.Open();
@@ -131,12 +138,29 @@ namespace CG_SK_Lab1
             myDataAdapter = new OleDbDataAdapter(query, conn);
             myDataAdapter.Fill(myExcelData);
 
-            dataGridView1.DataSource = myExcelData.Tables[0];
-
+            dataGridView2.DataSource = myExcelData.Tables[0];
             conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
 
-            //query 3
-            query = "SELECT AVG(Attendance) AS " + mealname3 + " FROM [Totals$] where Day = '" + Day3 + "' AND Meal = '" + mealname3 + "'";
+            Day = System.DateTime.Now.AddDays(2).DayOfWeek.ToString();
+            if (mealname == "breakfast")
+            {
+                Day2 = System.DateTime.Now.AddDays(2).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(2).DayOfWeek.ToString();
+            }
+            else if (mealname == "lunch")
+            {
+                Day2 = System.DateTime.Now.AddDays(2).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(3).DayOfWeek.ToString();
+            }
+            else // (mealname == "dinner")
+            {
+                Day2 = System.DateTime.Now.AddDays(3).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(3).DayOfWeek.ToString();
+            }
+            myExcelData = new DataSet();
+            query = "SELECT ROUND(AVG(Attendance)) AS " + Day + " FROM [Totals$] where Day = '" + Day + "' AND Meal = '" + mealname + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) FROM [Totals$] where Day = '" + Day2 + "' AND Meal = '" + mealname2 + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) FROM [Totals$] where Day = '" + Day3 + "' AND Meal = '" + mealname3 + "'";
 
 
             conn.Open();
@@ -145,107 +169,135 @@ namespace CG_SK_Lab1
             myDataAdapter = new OleDbDataAdapter(query, conn);
             myDataAdapter.Fill(myExcelData);
 
-            dataGridView1.DataSource = myExcelData.Tables[0];
-
+            dataGridView3.DataSource = myExcelData.Tables[0];
             conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
+
+            Day = System.DateTime.Now.AddDays(3).DayOfWeek.ToString();
+            if (mealname == "breakfast")
+            {
+                Day2 = System.DateTime.Now.AddDays(3).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(3).DayOfWeek.ToString();
+            }
+            else if (mealname == "lunch")
+            {
+                Day2 = System.DateTime.Now.AddDays(3).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(4).DayOfWeek.ToString();
+            }
+            else // (mealname == "dinner")
+            {
+                Day2 = System.DateTime.Now.AddDays(4).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(4).DayOfWeek.ToString();
+            }
+            myExcelData = new DataSet();
+            query = "SELECT ROUND(AVG(Attendance)) AS " + Day + " FROM [Totals$] where Day = '" + Day + "' AND Meal = '" + mealname + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname2 + " FROM [Totals$] where Day = '" + Day2 + "' AND Meal = '" + mealname2 + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname3 + " FROM [Totals$] where Day = '" + Day3 + "' AND Meal = '" + mealname3 + "'";
+
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView4.DataSource = myExcelData.Tables[0];
+            conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
+
+            Day = System.DateTime.Now.AddDays(4).DayOfWeek.ToString();
+            if (mealname == "breakfast")
+            {
+                Day2 = System.DateTime.Now.AddDays(4).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(4).DayOfWeek.ToString();
+            }
+            else if (mealname == "lunch")
+            {
+                Day2 = System.DateTime.Now.AddDays(4).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(5).DayOfWeek.ToString();
+            }
+            else // (mealname == "dinner")
+            {
+                Day2 = System.DateTime.Now.AddDays(5).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(5).DayOfWeek.ToString();
+            }
+            myExcelData = new DataSet();
+            query = "SELECT ROUND(AVG(Attendance)) AS " + Day + " FROM [Totals$] where Day = '" + Day + "' AND Meal = '" + mealname + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname2 + " FROM [Totals$] where Day = '" + Day2 + "' AND Meal = '" + mealname2 + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname3 + " FROM [Totals$] where Day = '" + Day3 + "' AND Meal = '" + mealname3 + "'";
+
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView5.DataSource = myExcelData.Tables[0];
+            conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
+
+            Day = System.DateTime.Now.AddDays(5).DayOfWeek.ToString();
+            if (mealname == "breakfast")
+            {
+                Day2 = System.DateTime.Now.AddDays(5).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(5).DayOfWeek.ToString();
+            }
+            else if (mealname == "lunch")
+            {
+                Day2 = System.DateTime.Now.AddDays(5).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(6).DayOfWeek.ToString();
+            }
+            else // (mealname == "dinner")
+            {
+                Day2 = System.DateTime.Now.AddDays(6).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(6).DayOfWeek.ToString();
+            }
+            myExcelData = new DataSet();
+            query = "SELECT ROUND(AVG(Attendance)) AS " + Day + " FROM [Totals$] where Day = '" + Day + "' AND Meal = '" + mealname + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname2 + " FROM [Totals$] where Day = '" + Day2 + "' AND Meal = '" + mealname2 + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname3 + " FROM [Totals$] where Day = '" + Day3 + "' AND Meal = '" + mealname3 + "'";
+
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView6.DataSource = myExcelData.Tables[0];
+            conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
+
+            Day = System.DateTime.Now.AddDays(6).DayOfWeek.ToString();
+            if (mealname == "breakfast")
+            {
+                Day2 = System.DateTime.Now.AddDays(6).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(6).DayOfWeek.ToString();
+            }
+            else if (mealname == "lunch")
+            {
+                Day2 = System.DateTime.Now.AddDays(6).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(7).DayOfWeek.ToString();
+            }
+            else // (mealname == "dinner")
+            {
+                Day2 = System.DateTime.Now.AddDays(7).DayOfWeek.ToString();
+                Day3 = System.DateTime.Now.AddDays(7).DayOfWeek.ToString();
+            }
+            myExcelData = new DataSet();
+            query = "SELECT ROUND(AVG(Attendance)) AS " + Day + " FROM [Totals$] where Day = '" + Day + "' AND Meal = '" + mealname + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname2 + " FROM [Totals$] where Day = '" + Day2 + "' AND Meal = '" + mealname2 + "'" +
+                    "UNION ALL SELECT ROUND(AVG(Attendance)) AS " + mealname3 + " FROM [Totals$] where Day = '" + Day3 + "' AND Meal = '" + mealname3 + "'";
+
+
+            conn.Open();
+
+            //should be able to get this to change using radio buttons
+            myDataAdapter = new OleDbDataAdapter(query, conn);
+            myDataAdapter.Fill(myExcelData);
+
+            dataGridView7.DataSource = myExcelData.Tables[0];
+            conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
+
             xlWorkBook.Save();
             xlWorkBook.Close();
-        }
-
-        private void makeweek_prediction()
-        {
-            string query;
-            // filename for database - must be in bin/debug folder
-            string file = "testdb.xlsx";
-
-            //Sunday
-            query = "SELECT AVG(Attendance)*3 AS Sunday FROM [Totals$] where Day = 'Sunday'";
-            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
-            // received lots of help from this link
-            OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
-            DataSet myExcelData = new DataSet();
-
-            conn.Open();
-
-            //should be able to get this to change using radio buttons
-            OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
-            myDataAdapter.Fill(myExcelData);
-
-            dataGridView1.DataSource = myExcelData.Tables[0];
-
-            conn.Close();
-            //Monday
-            query = "SELECT AVG(Attendance)*3 AS Monday FROM [Totals$] where Day = 'Monday'";
-
-            conn.Open();
-
-            //should be able to get this to change using radio buttons
-            myDataAdapter = new OleDbDataAdapter(query, conn);
-            myDataAdapter.Fill(myExcelData);
-
-            dataGridView1.DataSource = myExcelData.Tables[0];
-
-            conn.Close();
-            //Tuesday
-            query = "SELECT AVG(Attendance)*3 AS Tuesday FROM [Totals$] where Day = 'Tuesday'";
-
-            conn.Open();
-
-            //should be able to get this to change using radio buttons
-            myDataAdapter = new OleDbDataAdapter(query, conn);
-            myDataAdapter.Fill(myExcelData);
-
-            dataGridView1.DataSource = myExcelData.Tables[0];
-
-            conn.Close();
-            //Wednesday
-            query = "SELECT AVG(Attendance)*3 AS Wednseday FROM [Totals$] where Day = 'Wednesday'";
-
-            conn.Open();
-
-            //should be able to get this to change using radio buttons
-            myDataAdapter = new OleDbDataAdapter(query, conn);
-            myDataAdapter.Fill(myExcelData);
-
-            dataGridView1.DataSource = myExcelData.Tables[0];
-
-            conn.Close();
-            //Thursday
-            query = "SELECT AVG(Attendance)*3 AS Thursday FROM [Totals$] where Day = 'Thursday'";
-
-            conn.Open();
-
-            //should be able to get this to change using radio buttons
-            myDataAdapter = new OleDbDataAdapter(query, conn);
-            myDataAdapter.Fill(myExcelData);
-
-            dataGridView1.DataSource = myExcelData.Tables[0];
-
-            conn.Close();
-            //Friday
-            query = "SELECT AVG(Attendance)*3 AS Friday FROM [Totals$] where Day = 'Friday'";
-
-            conn.Open();
-
-            //should be able to get this to change using radio buttons
-            myDataAdapter = new OleDbDataAdapter(query, conn);
-            myDataAdapter.Fill(myExcelData);
-
-            dataGridView1.DataSource = myExcelData.Tables[0];
-
-            conn.Close();
-            //Saturday
-            query = "SELECT AVG(Attendance)*3 AS Saturday FROM [Totals$] where Day = 'Saturday'";
-
-            conn.Open();
-
-            //should be able to get this to change using radio buttons
-            myDataAdapter = new OleDbDataAdapter(query, conn);
-            myDataAdapter.Fill(myExcelData);
-
-            dataGridView1.DataSource = myExcelData.Tables[0];
-
-            conn.Close();
         }
 
         private void makemonth_prediction()
@@ -255,7 +307,7 @@ namespace CG_SK_Lab1
             string file = "testdb.xlsx";
 
             //Month
-            query = "SELECT AVG(Attendance)*31 AS NextMonth FROM [Totals$]";
+            query = "SELECT ROUND(AVG(Attendance))*31 AS NextMonth FROM [Totals$]";
             // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
             // received lots of help from this link
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
@@ -267,7 +319,7 @@ namespace CG_SK_Lab1
             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
             myDataAdapter.Fill(myExcelData);
 
-            dataGridView1.DataSource = myExcelData.Tables[0];
+            dataGridView8.DataSource = myExcelData.Tables[0];
 
             conn.Close();
         }
