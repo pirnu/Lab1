@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UEnter));
             this.AButton = new System.Windows.Forms.Button();
             this.ANameText = new System.Windows.Forms.TextBox();
             this.APassText = new System.Windows.Forms.TextBox();
@@ -77,6 +78,7 @@
             // 
             this.APassText.Location = new System.Drawing.Point(13, 314);
             this.APassText.Name = "APassText";
+            this.APassText.PasswordChar = '*';
             this.APassText.Size = new System.Drawing.Size(138, 20);
             this.APassText.TabIndex = 2;
             this.APassText.Visible = false;
@@ -120,7 +122,6 @@
             this.UIDText.Size = new System.Drawing.Size(178, 20);
             this.UIDText.TabIndex = 6;
             this.UIDText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UIDText_KeyDown);
-            this.UIDText.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.UIDText_KeyPress);
             // 
             // label1
             // 
@@ -154,9 +155,9 @@
             // 
             this.UPinText.Location = new System.Drawing.Point(273, 112);
             this.UPinText.Name = "UPinText";
+            this.UPinText.PasswordChar = '*';
             this.UPinText.Size = new System.Drawing.Size(138, 20);
             this.UPinText.TabIndex = 10;
-            this.UPinText.TextChanged += new System.EventHandler(this.UPinText_TextChanged);
             this.UPinText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.UPinText_KeyDown);
             // 
             // label3
@@ -310,9 +311,9 @@
             this.Controls.Add(this.APassText);
             this.Controls.Add(this.ANameText);
             this.Controls.Add(this.AButton);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "UEnter";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.UEnter_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -59,13 +59,19 @@
             this.mealLabel = new System.Windows.Forms.Label();
             this.numcadets = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.monthCal1 = new System.Windows.Forms.MonthCalendar();
+            this.monthCal2 = new System.Windows.Forms.MonthCalendar();
+            this.toCal = new System.Windows.Forms.PictureBox();
+            this.fromCal = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toCal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fromCal)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(24, 118);
+            this.dataGridView1.Location = new System.Drawing.Point(26, 157);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(621, 150);
             this.dataGridView1.TabIndex = 0;
@@ -170,7 +176,7 @@
             // 
             // month1
             // 
-            this.month1.Location = new System.Drawing.Point(273, 74);
+            this.month1.Location = new System.Drawing.Point(275, 76);
             this.month1.Name = "month1";
             this.month1.Size = new System.Drawing.Size(20, 20);
             this.month1.TabIndex = 36;
@@ -184,14 +190,14 @@
             // 
             // year1
             // 
-            this.year1.Location = new System.Drawing.Point(358, 76);
+            this.year1.Location = new System.Drawing.Point(346, 76);
             this.year1.Name = "year1";
             this.year1.Size = new System.Drawing.Size(44, 20);
             this.year1.TabIndex = 38;
             // 
             // month2
             // 
-            this.month2.Location = new System.Drawing.Point(419, 77);
+            this.month2.Location = new System.Drawing.Point(421, 76);
             this.month2.Name = "month2";
             this.month2.Size = new System.Drawing.Size(22, 20);
             this.month2.TabIndex = 39;
@@ -249,7 +255,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(355, 57);
+            this.label16.Location = new System.Drawing.Point(343, 57);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(35, 13);
             this.label16.TabIndex = 46;
@@ -340,11 +346,53 @@
             this.label2.TabIndex = 55;
             this.label2.Text = "Total Signed In";
             // 
+            // monthCal1
+            // 
+            this.monthCal1.Location = new System.Drawing.Point(186, 116);
+            this.monthCal1.Name = "monthCal1";
+            this.monthCal1.TabIndex = 58;
+            this.monthCal1.Visible = false;
+            this.monthCal1.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCal1_DateChanged);
+            this.monthCal1.Leave += new System.EventHandler(this.monthCal1_Leave);
+            // 
+            // monthCal2
+            // 
+            this.monthCal2.Location = new System.Drawing.Point(322, 116);
+            this.monthCal2.Name = "monthCal2";
+            this.monthCal2.TabIndex = 59;
+            this.monthCal2.Visible = false;
+            this.monthCal2.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCal2_DateChanged);
+            this.monthCal2.Leave += new System.EventHandler(this.monthCal2_Leave);
+            // 
+            // toCal
+            // 
+            this.toCal.Image = global::CG_SK_Lab1.Properties.Resources.calendaricon;
+            this.toCal.Location = new System.Drawing.Point(528, 76);
+            this.toCal.Name = "toCal";
+            this.toCal.Size = new System.Drawing.Size(21, 20);
+            this.toCal.TabIndex = 57;
+            this.toCal.TabStop = false;
+            this.toCal.Click += new System.EventHandler(this.toCal_Click);
+            // 
+            // fromCal
+            // 
+            this.fromCal.Image = global::CG_SK_Lab1.Properties.Resources.calendaricon;
+            this.fromCal.Location = new System.Drawing.Point(392, 77);
+            this.fromCal.Name = "fromCal";
+            this.fromCal.Size = new System.Drawing.Size(21, 20);
+            this.fromCal.TabIndex = 56;
+            this.fromCal.TabStop = false;
+            this.fromCal.Click += new System.EventHandler(this.fromCal_Click);
+            // 
             // Reports
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(659, 280);
+            this.ClientSize = new System.Drawing.Size(659, 319);
+            this.Controls.Add(this.monthCal2);
+            this.Controls.Add(this.monthCal1);
+            this.Controls.Add(this.toCal);
+            this.Controls.Add(this.fromCal);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.numcadets);
             this.Controls.Add(this.blank);
@@ -379,7 +427,10 @@
             this.Name = "Reports";
             this.Text = "Reports";
             this.Load += new System.EventHandler(this.Reports_Load);
+            this.Enter += new System.EventHandler(this.Reports_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toCal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fromCal)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,6 +469,10 @@
         private System.Windows.Forms.Label mealLabel;
         private System.Windows.Forms.Label numcadets;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.PictureBox fromCal;
+        private System.Windows.Forms.PictureBox toCal;
+        private System.Windows.Forms.MonthCalendar monthCal1;
+        private System.Windows.Forms.MonthCalendar monthCal2;
 
     }
 }

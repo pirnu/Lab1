@@ -68,11 +68,6 @@ namespace CG_SK_Lab1
 
         }
 
-        private void UEnter_Load(object sender, EventArgs e)
-        {
-
-        }//Need to Learn How to Delete...
-
         //When An ID is scanned
         private void UIDText_KeyDown(object sender, KeyEventArgs e)    
         {
@@ -80,11 +75,6 @@ namespace CG_SK_Lab1
             if (e.KeyCode == Keys.Enter)
                 check_database_code();
         }
-        
-        private void UPinText_TextChanged(object sender, EventArgs e)
-        {
-            //Does nothing
-        } // Find  a way to remove...without breaking everything
 
         //When User presses Enter in name field
         private void UNameText_KeyDown(object sender, KeyEventArgs e)
@@ -139,11 +129,6 @@ namespace CG_SK_Lab1
             timer1.Stop();
         }
 
-        private void UIDText_KeyPress(object sender, KeyPressEventArgs e)
-        {
-           //Does nothing
-        } //Need to Remove...
-
         // Show Dialog whenever another form link is selected.
         private void ADispRep_Click(object sender, EventArgs e)
         {
@@ -170,9 +155,7 @@ namespace CG_SK_Lab1
         {
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Cadet Users
@@ -290,9 +273,7 @@ namespace CG_SK_Lab1
         private void check_database_np() //check with name and pin
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Users";                                                  // Set current sheet to be Cadet Users
@@ -425,9 +406,7 @@ namespace CG_SK_Lab1
         private void check_database_admin() //check with name and pin
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Admin";                                                  // Set current sheet to be Administrators
@@ -524,9 +503,7 @@ namespace CG_SK_Lab1
         private void sign_in_cadet(string name)
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "CurrentMeal";                                             // Set current sheet to be Cadet Users
@@ -555,9 +532,7 @@ namespace CG_SK_Lab1
         {
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Excusals";                                                  // Set current sheet to be Cadet Users
@@ -598,9 +573,7 @@ namespace CG_SK_Lab1
         private void update_multiples(string name)
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "Multiples";                                                  // Set current sheet to be Cadet Users
@@ -610,6 +583,7 @@ namespace CG_SK_Lab1
             double numofmultiples = xlcell.Value;
             double rownum = numofmultiples + 2;
 
+            // Put information in next row
             xlworksheet.Cells[rownum, 1] = name;
             xlworksheet.Cells[rownum, 2] = DateTime.Today;
             xlworksheet.Cells[rownum, 3] = denied;

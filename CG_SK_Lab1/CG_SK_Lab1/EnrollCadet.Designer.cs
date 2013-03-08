@@ -64,6 +64,7 @@
             // 
             this.pinText.Location = new System.Drawing.Point(144, 141);
             this.pinText.Name = "pinText";
+            this.pinText.PasswordChar = '*';
             this.pinText.Size = new System.Drawing.Size(144, 20);
             this.pinText.TabIndex = 2;
             this.pinText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.pinText_KeyDown);

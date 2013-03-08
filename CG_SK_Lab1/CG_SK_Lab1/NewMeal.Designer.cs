@@ -91,7 +91,6 @@
             this.Controls.Add(this.BreakRadio);
             this.Name = "NewMeal";
             this.Text = "NewMeal";
-            this.Load += new System.EventHandler(this.NewMeal_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

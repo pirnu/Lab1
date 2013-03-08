@@ -40,18 +40,11 @@ namespace CG_SK_Lab1
             this.Close();
         }
 
-        private void NewMeal_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void update_meal_log()
         {
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "CurrentMeal";                                             // Set current sheet to be Attendance
@@ -75,7 +68,7 @@ namespace CG_SK_Lab1
             int k;
 
             xlworksheet.Cells[97, 3] = attendance;
-            //range.Delete(Excel.XlDeleteShiftDirection.xlShiftUp);
+
             for (int i = 2; i <= 96; i++)
             {
                 k = i + 1;
@@ -114,9 +107,7 @@ namespace CG_SK_Lab1
         {
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "CurrentMeal";                                             // Set current sheet to be Attendance
@@ -128,24 +119,29 @@ namespace CG_SK_Lab1
             Excel.Worksheet xlworksheet2 = (Excel.Worksheet)xlsheet.get_Item(currentSheet);
             Excel.Range xlcell2 = (Excel.Range)xlworksheet2.get_Range("E2", "E2");            // store in xlcell
 
-            int attendance = Convert.ToInt16(attend);
+            double attendance = Convert.ToDouble(attend);
 
 
             string block1;
             string block2;
             string paste1;
             string paste2;
-                
-            block1 = "A" + 2.ToString();
+
+            // get first range of people
+            block1 = "A2";
             block2 = "D" + (attendance+1).ToString();
 
+            // find out how many people there are
             string allp = xlcell2.Value.ToString();
-            int allpeople = Convert.ToInt16(allp) + 2;
+            double allpeople = Convert.ToDouble(allp) + 2;
 
+            // get second range of people
             paste1 = "A" + allpeople.ToString();
             paste2 = "D" + (allpeople + attendance).ToString();
 
+            // get entire range from currentMeal worksheet
             Excel.Range selCell1 = (Excel.Range)xlworksheet.get_Range(block1, block2);
+            // past into long term attendance sheet
             Excel.Range selCell2 = (Excel.Range)xlworksheet2.get_Range(paste1, paste2);
             selCell1.Cut(selCell2);
 

@@ -112,6 +112,7 @@
             // 
             this.APassText.Location = new System.Drawing.Point(129, 183);
             this.APassText.Name = "APassText";
+            this.APassText.PasswordChar = '*';
             this.APassText.Size = new System.Drawing.Size(100, 20);
             this.APassText.TabIndex = 7;
             this.APassText.KeyDown += new System.Windows.Forms.KeyEventHandler(this.APassText_KeyDown);

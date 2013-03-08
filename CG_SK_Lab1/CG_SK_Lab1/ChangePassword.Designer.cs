@@ -85,6 +85,7 @@
             // 
             this.pinText.Location = new System.Drawing.Point(153, 115);
             this.pinText.Name = "pinText";
+            this.pinText.PasswordChar = '*';
             this.pinText.Size = new System.Drawing.Size(127, 20);
             this.pinText.TabIndex = 4;
             // 
@@ -102,6 +103,7 @@
             // 
             this.verified.Location = new System.Drawing.Point(153, 156);
             this.verified.Name = "verified";
+            this.verified.PasswordChar = '*';
             this.verified.Size = new System.Drawing.Size(127, 20);
             this.verified.TabIndex = 6;
             this.verified.TextChanged += new System.EventHandler(this.verified_TextChanged);

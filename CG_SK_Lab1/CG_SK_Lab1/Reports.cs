@@ -3,10 +3,6 @@
  * 
  * Allows admin to display old reports from database.
  * Admin can choose which meal to sort reports by time, cadet or meal
- * 
- * Objects: (Name - Description)
- * 
- * 
  * */
 
 
@@ -25,9 +21,10 @@ namespace CG_SK_Lab1
 {
     public partial class Reports : Form
     {
-        public string query;
-        public string sheet;
-        public string ID;
+        public string query;    // string to query SQL
+        public string sheet;    // current sheet being used
+        public string ID;       // cadet or meal name
+
         public Reports()
         {
             InitializeComponent();
@@ -44,13 +41,11 @@ namespace CG_SK_Lab1
 
             conn.Open();
 
-            //should be able to get this to change using radio buttons
+            // Immediatly open the Name,Timestamp columns from the Attendance sheet
             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter("Select Name,Timestamp from [Attendance$]", conn);
-        //    myDataAdapter.Fill(myExcelData);
 
-       //     dataGridView1.DataSource = myExcelData.Tables[0];
 
-            conn.Close(); //scotty uncommented - needed to prevent it from staying open.. and becoming read only
+            conn.Close();
         }
 
         private void Reports_Load(object sender, EventArgs e)
@@ -72,14 +67,12 @@ namespace CG_SK_Lab1
 
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
-            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
-            // received lots of help from this link
+            // connect to database
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
             DataSet myExcelData = new DataSet();
 
             conn.Open();
 
-            //should be able to get this to change using radio buttons
             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
             myDataAdapter.Fill(myExcelData);
 
@@ -98,25 +91,18 @@ namespace CG_SK_Lab1
 
             // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
-            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
-            // received lots of help from this link
+
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
             DataSet myExcelData = new DataSet();
 
             conn.Open();
 
-            //should be able to get this to change using radio buttons
             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
             myDataAdapter.Fill(myExcelData);
 
             dataGridView1.DataSource = myExcelData.Tables[0];
 
             conn.Close();
-
-        }
-
-        private void cadetBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
         }
 
@@ -128,16 +114,13 @@ namespace CG_SK_Lab1
             sheet = "Excusals";
             ID = "Name";
             
-            // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
-            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
-            // received lots of help from this link
+
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
             DataSet myExcelData = new DataSet();
 
             conn.Open();
 
-            //should be able to get this to change using radio buttons
             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
             myDataAdapter.Fill(myExcelData);
 
@@ -154,16 +137,12 @@ namespace CG_SK_Lab1
             sheet = "Multiples";
             ID = "Name";
 
-            // filename for database - must be in bin/debug folder
             string file = "testdb.xlsx";
-            // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
-            // received lots of help from this link
             OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
             DataSet myExcelData = new DataSet();
 
             conn.Open();
 
-            //should be able to get this to change using radio buttons
             OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
             myDataAdapter.Fill(myExcelData);
 
@@ -177,17 +156,13 @@ namespace CG_SK_Lab1
             if (e.KeyCode == Keys.Enter && nameText.Text != "")
             {
                 string cadet = nameText.Text;
-                // filename for database - must be in bin/debug folder
                 string file = "testdb.xlsx";
                 query = "Select * from [" + sheet + "$] Where "+ID+" = '"+cadet+"'";
-                // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
-                // received lots of help from this link
                 OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
                 DataSet myExcelData = new DataSet();
 
                 conn.Open();
 
-                //should be able to get this to change using radio buttons
                 OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
                 myDataAdapter.Fill(myExcelData);
 
@@ -199,6 +174,7 @@ namespace CG_SK_Lab1
 
         private void search_Click(object sender, EventArgs e)
         {
+            // Get dates from text boxes
             string m1 = month1.Text;
             string d1 = day1.Text;
             string y1 = year1.Text;
@@ -210,15 +186,12 @@ namespace CG_SK_Lab1
             string date1 = m1+"/"+d1+"/"+y1;
             string date2 = m2+"/"+d2+"/"+y2;
 
+            // get cadet name if entered
             string cadet = nameText.Text;
-
-            // AFTER RETRIEVING ALL INFO, WE NEED TO CONVERT INTO EXCEL AND GRAB ITS FORMATTED VERSION
 
             //Initializes Database
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = sheet;                                                  // Set current sheet to be Cadet Users
@@ -236,8 +209,7 @@ namespace CG_SK_Lab1
             xlcell = (Excel.Range)xlworksheet.get_Range("F3", "F3");    // store in xlcell
             date2 = xlcell.Value.ToString();
 
-            //now we search it against those values... our database will need to autoadd the "excelform" column when we enroll cadets..i'll fix that soon.
-
+            // Display error message if any field is left blank
             if (m1 == "" || m2 == "" || d1 == "" || d2 == "" || y1 == "" || y2 == "")
             {
                 blank.Visible = true; // Put error message for blank
@@ -268,16 +240,14 @@ namespace CG_SK_Lab1
                     else                            // Cadet Signed in Multiple Times
                         query = "Select Name, TimeStamp, Reason from [" + sheet + "$] Where excelform >= " + date1 + " And excelform <= " + date2 + " And Name = '" + cadet + "'";
                 }
-                // filename for database - must be in bin/debug folder
+
                 string file = "testdb.xlsx";
-                // http://stackoverflow.com/questions/512143/error-could-not-find-installable-isam
-                // received lots of help from this link
+
                 OleDbConnection conn = new OleDbConnection(@"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + file + ";" + "Extended Properties=" + "\"" + "Excel 12.0;HDR=YES;" + "\"");
                 DataSet myExcelData = new DataSet();
 
                 conn.Open();
 
-                //should be able to get this to change using radio buttons
                 OleDbDataAdapter myDataAdapter = new OleDbDataAdapter(query, conn);
                 myDataAdapter.Fill(myExcelData);
 
@@ -293,9 +263,7 @@ namespace CG_SK_Lab1
         private void disp_num_cadets()
         {
             Excel.Application xlApp = new Excel.Application(); //Create New Variable to hold Excel App
-            // string workbookpath = "C:\\Users\\Network Student\\Documents\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\Debug\\testdb"; //path//path for github
             string workbookpath = "C:\\Users\\Network Student\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //path for Mac-228
-            //string workbookpath = "C:\\Users\\swkenney\\Desktop\\Lab1\\CG_SK_Lab1\\CG_SK_Lab1\\bin\\debug\\testdb"; //Path for Mac-210
             Excel.Workbook xlWorkBook = xlApp.Workbooks.Open(workbookpath, 0, false, 5, "", "", false, Excel.XlPlatform.xlWindows, "", true, false, 0, true, false, false); //How to access Spreadsheet
             Excel.Sheets xlsheet = xlWorkBook.Worksheets;                                   // Variable to hold excel Sheets
             string currentSheet = "CurrentMeal";                                                  // Set current sheet to be Cadet Users
@@ -308,5 +276,52 @@ namespace CG_SK_Lab1
             xlWorkBook.Close();
             
         }
+
+        private void fromCal_Click(object sender, EventArgs e)
+        {
+            // show appropriate calendar
+            monthCal1.Visible = true;
+            monthCal2.Visible = false;
+        }
+
+        private void monthCal2_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            // put calendar day into appropriate text boxes
+            day2.Text = monthCal2.SelectionRange.Start.Date.Day.ToString();
+            month2.Text = monthCal2.SelectionRange.Start.Date.Month.ToString();
+            year2.Text = monthCal2.SelectionRange.Start.Date.Year.ToString();
+        }
+
+        private void toCal_Click(object sender, EventArgs e)
+        {
+            monthCal2.Visible = true;
+            monthCal1.Visible = false;
+        }
+
+        private void monthCal1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            day1.Text = monthCal1.SelectionRange.Start.Date.Day.ToString() ;
+            month1.Text = monthCal1.SelectionRange.Start.Date.Month.ToString();
+            year1.Text = monthCal1.SelectionRange.Start.Date.Year.ToString();
+        }
+
+        private void monthCal1_Leave(object sender, EventArgs e)
+        {
+            // turn calendars invisible when left
+            monthCal1.Visible = false;
+        }
+
+        private void monthCal2_Leave(object sender, EventArgs e)
+        {
+            monthCal2.Visible = false;
+        }
+
+        private void Reports_Enter(object sender, EventArgs e)
+        {
+            // turn calendar invisible if something else is clicked
+            monthCal1.Visible = false;
+            monthCal2.Visible = false;
+        }
+
     }
 }

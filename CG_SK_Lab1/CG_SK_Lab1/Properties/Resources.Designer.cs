@@ -60,6 +60,20 @@ namespace CG_SK_Lab1.Properties {
             }
         }
         
+        internal static System.Drawing.Icon bear {
+            get {
+                object obj = ResourceManager.GetObject("bear", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap calendaricon {
+            get {
+                object obj = ResourceManager.GetObject("calendaricon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap checkmark {
             get {
                 object obj = ResourceManager.GetObject("checkmark", resourceCulture);
